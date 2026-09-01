@@ -1,0 +1,1575 @@
+.loader-text{text-align:center}.story-signature{font:italic 2rem 'Cormorant Garamond';margin-top:25px}.album-pos-68{object-position:center 68%}.album-pos-38{object-position:center 38%}.album-pos-56{object-position:center 56%}.album-pos-54{object-position:center 54%}
+
+:root {
+    --ink: #283027;
+    --cream: #f4efe7;
+    --paper: #fbf8f2;
+    --gold: #b79b6c;
+    --line: #2830272c
+}
+
+* {
+    box-sizing: border-box
+}
+
+html {
+    scroll-behavior: smooth
+}
+
+body {
+    margin: 0;
+    background: var(--cream);
+    color: var(--ink);
+    font-family: 'Be Vietnam Pro', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden
+}
+
+body.lock {
+    overflow: hidden
+}
+
+a {
+    color: inherit;
+    text-decoration: none
+}
+
+button {
+    font: inherit
+}
+
+.eyebrow {
+    font-size: .65rem;
+    letter-spacing: .27em;
+    text-transform: uppercase;
+    font-weight: 500
+}
+
+.section {
+    padding: 110px max(7vw, 24px)
+}
+
+.reveal {
+    opacity: 0;
+    transform: translateY(35px);
+    transition: 1s
+}
+
+.reveal.show {
+    opacity: 1;
+    transform: none
+}
+
+.loader {
+    position: fixed;
+    inset: 0;
+    z-index: 999;
+    background: #242b24;
+    color: #fff;
+    display: grid;
+    place-items: center;
+    transition: .9s
+}
+
+.loader.hide {
+    opacity: 0;
+    visibility: hidden
+}
+
+.loadmark {
+    width: 85px;
+    height: 85px;
+    border: 1px solid #ffffff66;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    font: italic 2rem 'Cormorant Garamond';
+    animation: pulse 2s infinite;
+    display: flex;
+    align-items: center;
+    jusstify-content: center;
+}
+
+.loader p {
+    text-align: center;
+    font-size: .6rem;
+    letter-spacing: .25em;
+    text-transform: uppercase
+}
+
+@keyframes pulse {
+    50% {
+        transform: scale(1.06);
+        box-shadow: 0 0 0 13px #ffffff0a
+    }
+}
+
+.cover {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    background: linear-gradient(120deg, #1c221cc4, #1c221c38), url('299dd102e846681831573.jpg') center 58%/cover;
+    color: #fff;
+    display: grid;
+    place-items: center;
+    text-align: center;
+    transition: transform 1.2s cubic-bezier(.76, 0, .24, 1), opacity 1s
+}
+
+.cover.open {
+    transform: translateY(-100%);
+    opacity: .4
+}
+
+.cover h1 {
+    font: italic clamp(3.8rem, 10vw, 7.8rem)/.82 'Cormorant Garamond';
+    margin: 22px
+}
+
+.cover h1 span {
+    display: block;
+    font-size: .38em;
+    font-style: normal;
+    margin: 15px
+}
+
+.cover-date {
+    letter-spacing: .28em;
+    font-size: .72rem
+}
+
+.open-btn {
+    margin-top: 35px;
+    border: 1px solid #ffffffaa;
+    background: #ffffff12;
+    backdrop-filter: blur(8px);
+    color: #fff;
+    border-radius: 50%;
+    width: 108px;
+    height: 108px;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: .16em;
+    font-size: .62rem;
+    transition: .35s
+}
+
+.open-btn:hover {
+    background: #fff;
+    color: var(--ink);
+    transform: scale(1.06)
+}
+
+nav {
+    position: fixed;
+    z-index: 50;
+    inset: 0 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 25px 4vw;
+    color: #fff;
+    mix-blend-mode: difference
+}
+
+.brand {
+    font: italic 1.5rem 'Cormorant Garamond'
+}
+
+.navlinks {
+    display: flex;
+    gap: 30px;
+    font-size: .6rem;
+    letter-spacing: .16em;
+    text-transform: uppercase
+}
+
+.music {
+    position: fixed;
+    right: 22px;
+    bottom: 22px;
+    z-index: 60;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: 1px solid var(--line);
+    background: #fbf8f2e8;
+    color: var(--ink);
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+    box-shadow: 0 8px 30px #0002
+}
+
+.music.playing svg {
+    animation: spin 5s linear infinite
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg)
+    }
+}
+
+#yt {
+    position: fixed;
+    width: 1px;
+    height: 1px;
+    left: -10px;
+    bottom: -10px;
+    opacity: .01
+}
+
+.hero {
+    min-height: 100svh;
+    position: relative;
+    background: #202620;
+    color: #fff;
+    display: flex;
+    align-items: flex-end;
+    overflow: hidden
+}
+
+.hero-bg {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, #131713a8, #13171310 70%), url('299dd102e846681831573.jpg') center 58%/cover;
+    transform: scale(1.06);
+    animation: ken 14s ease-out forwards
+}
+
+@keyframes ken {
+    to {
+        transform: scale(1)
+    }
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    padding: 0 7vw 8vh;
+    max-width: 800px
+}
+
+.hero h1 {
+    font: 400 clamp(4rem, 9.5vw, 9rem)/.76 'Cormorant Garamond';
+    margin: 18px 0
+}
+
+.hero h1 em {
+    display: block;
+    margin-left: 12vw
+}
+
+.hero-sub {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    font-size: .7rem;
+    letter-spacing: .22em;
+    text-transform: uppercase
+}
+
+.hero-sub:before {
+    content: '';
+    width: 70px;
+    height: 1px;
+    background: #fff
+}
+
+.scroll {
+    position: absolute;
+    z-index: 2;
+    right: 4vw;
+    bottom: 7vh;
+    writing-mode: vertical-rl;
+    font-size: .56rem;
+    letter-spacing: .24em;
+    text-transform: uppercase
+}
+
+.intro {
+    text-align: center;
+    background: var(--paper)
+}
+
+.intro .mark {
+    font: italic 3.8rem 'Cormorant Garamond';
+    color: var(--gold)
+}
+
+.intro h2 {
+    max-width: 900px;
+    margin: 15px auto 30px;
+    font: 400 clamp(2.4rem, 5vw, 5rem)/1.05 'Cormorant Garamond'
+}
+
+.intro p:last-child {
+    max-width: 580px;
+    margin: auto;
+    line-height: 1.9;
+    font-size: .86rem;
+    color: #62675f
+}
+
+.names {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 6vw;
+    align-items: center
+}
+
+.person:last-child {
+    text-align: right
+}
+
+.person .num {
+    font: italic 1rem 'Cormorant Garamond';
+    color: var(--gold)
+}
+
+.person h3 {
+    font: 400 clamp(2.6rem, 5vw, 5.8rem)/.95 'Cormorant Garamond';
+    margin: 20px 0
+}
+
+.person p {
+    font-size: .76rem;
+    line-height: 1.8;
+    color: #6c716a
+}
+
+.amp {
+    font: italic clamp(5rem, 11vw, 11rem) 'Cormorant Garamond';
+    color: #28302722
+}
+
+.quote {
+    min-height: 70vh;
+    background: linear-gradient(#2026207a, #2026207a), url('d76767fa5ebedee087af5.jpg') center 67%/cover fixed;
+    display: grid;
+    place-items: center;
+    text-align: center;
+    color: #fff;
+    padding: 80px 25px
+}
+
+.quote blockquote {
+    font: italic clamp(2.5rem, 6vw, 6rem)/1.05 'Cormorant Garamond';
+    max-width: 950px
+}
+
+.quote p {
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    font-size: .62rem
+}
+
+.event {
+    background: var(--paper)
+}
+
+.title {
+    text-align: center;
+    margin-bottom: 70px
+}
+
+.title h2 {
+    font: 400 clamp(3rem, 6vw, 6rem) 'Cormorant Garamond';
+    margin: 10px
+}
+
+.eventgrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border-block: 1px solid var(--line)
+}
+
+.card {
+    padding: 65px 6vw
+}
+
+.card+.card {
+    border-left: 1px solid var(--line)
+}
+
+.card .date {
+    font: italic 4.5rem 'Cormorant Garamond';
+    color: var(--gold);
+    float: right
+}
+
+.card h3 {
+    font: 400 2.2rem 'Cormorant Garamond';
+    margin: 25px 0
+}
+
+.card p {
+    font-size: .76rem;
+    line-height: 1.8;
+    color: #656b63
+}
+
+.outline {
+    display: inline-block;
+    margin-top: 25px;
+    padding: 13px 22px;
+    border: 1px solid var(--ink);
+    font-size: .6rem;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    transition: .3s
+}
+
+.outline:hover {
+    background: var(--ink);
+    color: #fff
+}
+
+.countdown {
+    background: #283027;
+    color: #fff;
+    text-align: center
+}
+
+.countgrid {
+    display: flex;
+    justify-content: center;
+    gap: clamp(20px, 7vw, 90px);
+    margin-top: 45px
+}
+
+.count strong {
+    display: block;
+    font: 400 clamp(2.8rem, 6vw, 6rem) 'Cormorant Garamond'
+}
+
+.count span {
+    font-size: .56rem;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    opacity: .7
+}
+
+.gallery {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 800px
+}
+
+.gallerycopy {
+    padding: 110px 8vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center
+}
+
+.gallery h2 {
+    font: 400 clamp(3.2rem, 6vw, 6rem)/.9 'Cormorant Garamond';
+    margin: 18px 0 30px
+}
+
+.gallerycopy p {
+    font-size: .82rem;
+    line-height: 1.9;
+    color: #686e66
+}
+
+.photo {
+    background: url('19e4f461cd254d7b14341.jpg') center 45%/cover;
+    min-height: 650px;
+    clip-path: inset(5% 5% 5% 0)
+}
+
+.groom-voice {
+    background: #283027;
+    color: #fff;
+    display: grid;
+    grid-template-columns: .8fr 1.2fr;
+    gap: 8vw;
+    align-items: center
+}
+
+.voice-label {
+    width: 150px;
+    height: 150px;
+    border: 1px solid #ffffff50;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    text-align: center;
+    font: italic 1.5rem 'Cormorant Garamond';
+    margin: auto;
+    position: relative
+}
+
+.voice-label:after {
+    content: '';
+    position: absolute;
+    inset: -13px;
+    border: 1px solid #ffffff18;
+    border-radius: 50%
+}
+
+.voice-copy h2 {
+    font: italic 400 clamp(3rem, 6vw, 6rem)/.95 'Cormorant Garamond';
+    margin: 12px 0
+}
+
+.voice-copy>p {
+    font-size: .8rem;
+    line-height: 1.8;
+    color: #cdd2cb;
+    max-width: 570px
+}
+
+.voice-player {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-top: 30px
+}
+
+.voice-play {
+    width: 58px;
+    height: 58px;
+    border-radius: 50%;
+    border: 1px solid #ffffff80;
+    background: #fff;
+    color: var(--ink);
+    cursor: pointer;
+    font-size: 1rem
+}
+
+.wave {
+    height: 45px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    flex: 1;
+    max-width: 380px
+}
+
+.wave i {
+    width: 3px;
+    height: 12px;
+    background: #d4bd91;
+    border-radius: 4px
+}
+
+.wave i:nth-child(3n) {
+    height: 30px
+}
+
+.wave i:nth-child(2n) {
+    height: 20px
+}
+
+.voice-player.playing .wave i {
+    animation: wave .8s ease-in-out infinite alternate
+}
+
+.voice-player.playing .wave i:nth-child(2n) {
+    animation-delay: -.35s
+}
+
+.voice-player.playing .wave i:nth-child(3n) {
+    animation-delay: -.6s
+}
+
+@keyframes wave {
+    to {
+        height: 42px
+    }
+}
+
+.album {
+    background: var(--paper)
+}
+
+.album-head {
+    text-align: center;
+    margin-bottom: 55px
+}
+
+.album-head h2 {
+    font: 400 clamp(3rem, 6vw, 6rem) 'Cormorant Garamond';
+    margin: 12px
+}
+
+.albumgrid {
+    display: grid;
+    grid-template-columns: 1.2fr .8fr .8fr;
+    grid-template-rows: 320px 260px;
+    gap: 14px;
+    max-width: 1200px;
+    margin: auto
+}
+
+.album-item {
+    border: 0;
+    padding: 0;
+    overflow: hidden;
+    cursor: zoom-in;
+    background: #ddd;
+    position: relative
+}
+
+.album-item:first-child {
+    grid-row: 1/3
+}
+
+.album-item:nth-child(4) {
+    grid-column: 2/4
+}
+
+.album-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform .8s
+}
+
+.album-item:hover img {
+    transform: scale(1.06)
+}
+
+.album-item:after {
+    content: 'Xem ảnh  ↗';
+    position: absolute;
+    right: 14px;
+    bottom: 14px;
+    background: #fbf8f2e8;
+    padding: 9px 12px;
+    font-size: .55rem;
+    letter-spacing: .13em;
+    text-transform: uppercase;
+    opacity: 0;
+    transform: translateY(8px);
+    transition: .3s
+}
+
+.album-item:hover:after {
+    opacity: 1;
+    transform: none
+}
+
+.lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 400;
+    background: #151a17f5;
+    display: grid;
+    place-items: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: .45s
+}
+
+.lightbox.open {
+    opacity: 1;
+    visibility: visible
+}
+
+.lightbox img {
+    max-width: min(90vw, 1100px);
+    max-height: 84vh;
+    object-fit: contain;
+    box-shadow: 0 25px 80px #0008
+}
+
+.lightbox-close,
+.lightbox-nav {
+    position: absolute;
+    border: 1px solid #ffffff60;
+    background: #1b211bc7;
+    color: #fff;
+    border-radius: 50%;
+    cursor: pointer
+}
+
+.lightbox-close {
+    right: 25px;
+    top: 25px;
+    width: 46px;
+    height: 46px;
+    font-size: 1.3rem
+}
+
+.lightbox-nav {
+    top: 50%;
+    width: 52px;
+    height: 52px;
+    font-size: 1.4rem
+}
+
+.lightbox-prev {
+    left: 25px
+}
+
+.lightbox-next {
+    right: 25px
+}
+
+.lightbox-count {
+    position: absolute;
+    bottom: 24px;
+    color: #fff;
+    font-size: .6rem;
+    letter-spacing: .18em
+}
+
+.album-item:nth-child(5) {
+    grid-column: 1/4;
+    min-height: 300px
+}
+
+.gift {
+    background: #ede5d9;
+    text-align: center
+}
+
+.gift-title h2 {
+    font: 400 clamp(3rem, 6vw, 6rem) 'Cormorant Garamond';
+    margin: 14px 0
+}
+
+.gift-title>p:last-child {
+    max-width: 560px;
+    margin: auto;
+    color: #666d64;
+    font-size: .8rem;
+    line-height: 1.8
+}
+
+.giftgrid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+    max-width: 900px;
+    margin: 55px auto 0
+}
+
+.giftcard {
+    background: var(--paper);
+    padding: 42px 28px;
+    border: 1px solid #fff;
+    box-shadow: 0 18px 50px #57483212
+}
+
+.giftcard h3 {
+    font: 400 2.1rem 'Cormorant Garamond';
+    margin: 10px 0 24px
+}
+
+.qr-placeholder {
+    width: 180px;
+    aspect-ratio: 1;
+    margin: auto;
+    display: grid;
+    place-items: center;
+    border: 1px dashed #9e927f;
+    background: repeating-linear-gradient(45deg, #f3eee6, #f3eee6 8px, #faf7f1 8px, #faf7f1 16px);
+    color: #777064;
+    font-size: .62rem;
+    line-height: 1.7;
+    letter-spacing: .12em;
+    text-transform: uppercase
+}
+
+.bankinfo {
+    margin: 25px 0 0;
+    font-size: .73rem;
+    line-height: 2;
+    color: #656b63
+}
+
+.bankinfo strong {
+    display: block;
+    color: var(--ink);
+    font-size: .86rem;
+    letter-spacing: .08em
+}
+
+.copybtn {
+    margin-top: 18px;
+    border: 1px solid var(--ink);
+    background: transparent;
+    padding: 11px 18px;
+    cursor: pointer;
+    font-size: .58rem;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    transition: .3s
+}
+
+.copybtn:hover {
+    background: var(--ink);
+    color: #fff
+}
+
+.rsvp {
+    text-align: center;
+    background: var(--paper);
+    position: relative;
+    overflow: hidden
+}
+
+.rsvp:before {
+    content: 'R';
+    position: absolute;
+    font: italic 35rem 'Cormorant Garamond';
+    color: #28302708;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%)
+}
+
+.rsvp>* {
+    position: relative
+}
+
+.rsvp h2 {
+    font: 400 clamp(3rem, 6vw, 6rem) 'Cormorant Garamond';
+    margin: 16px
+}
+
+.rsvp>p {
+    font-size: .8rem;
+    color: #6a6f68
+}
+
+.rsvp form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+    max-width: 700px;
+    margin: 45px auto 0;
+    text-align: left
+}
+
+.field {
+    border: 0;
+    border-bottom: 1px solid var(--line);
+    background: transparent;
+    padding: 15px 5px;
+    outline: 0;
+    font: 300 .76rem 'Be Vietnam Pro';
+    color: var(--ink)
+}
+
+.full {
+    grid-column: 1/-1
+}
+
+.submit {
+    grid-column: 1/-1;
+    justify-self: center;
+    border: 0;
+    background: var(--ink);
+    color: #fff;
+    padding: 16px 35px;
+    margin-top: 15px;
+    cursor: pointer;
+    font-size: .62rem;
+    letter-spacing: .18em;
+    text-transform: uppercase
+}
+
+.toast {
+    position: fixed;
+    left: 50%;
+    bottom: 30px;
+    z-index: 200;
+    transform: translate(-50%, 30px);
+    opacity: 0;
+    background: #263026;
+    color: #fff;
+    padding: 14px 22px;
+    font-size: .72rem;
+    transition: .4s
+}
+
+.toast.show {
+    opacity: 1;
+    transform: translate(-50%, 0)
+}
+
+.heart-layer {
+    position: fixed;
+    inset: 0;
+    z-index: 70;
+    pointer-events: none;
+    overflow: hidden
+}
+
+.floating-heart {
+    position: absolute;
+    bottom: -45px;
+    color: #c98f8a;
+    opacity: 0;
+    font-family: 'Cormorant Garamond', serif;
+    filter: drop-shadow(0 4px 8px #6f484825);
+    animation: heartDrift var(--duration, 10s) linear forwards;
+    will-change: transform, opacity
+}
+
+.floating-heart.gold {
+    color: #b79b6c
+}
+
+.floating-heart.cream {
+    color: #f5e9db
+}
+
+.heart-burst {
+    position: fixed;
+    z-index: 500;
+    pointer-events: none;
+    color: #cc7f7a;
+    font-size: var(--size, 16px);
+    animation: heartBurst .95s cubic-bezier(.15, .7, .35, 1) forwards;
+    will-change: transform, opacity
+}
+
+@keyframes heartDrift {
+    0% {
+        opacity: 0;
+        transform: translate3d(0, 0, 0) rotate(0) scale(.7)
+    }
+
+    12% {
+        opacity: .42
+    }
+
+    70% {
+        opacity: .28
+    }
+
+    100% {
+        opacity: 0;
+        transform: translate3d(var(--sway, 35px), -115vh, 0) rotate(var(--rotate, 40deg)) scale(1.15)
+    }
+}
+
+@keyframes heartBurst {
+    0% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(.3)
+    }
+
+    20% {
+        opacity: .9
+    }
+
+    100% {
+        opacity: 0;
+        transform: translate(calc(-50% + var(--x)), calc(-50% + var(--y))) rotate(var(--r)) scale(1.15)
+    }
+}
+
+.secret-invite {
+    position: fixed;
+    left: 50%;
+    bottom: 28px;
+    z-index: 80;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border: 0;
+    background: var(--paper);
+    color: var(--ink);
+    padding: 10px 18px 10px 10px;
+    border-radius: 50px;
+    box-shadow: 0 15px 50px #151b1540;
+    cursor: pointer;
+    opacity: 0;
+    pointer-events: none;
+    transform: translate(-50%, 40px) scale(.8);
+    transition: .7s cubic-bezier(.2, .9, .3, 1.25)
+}
+
+.secret-invite.show {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translate(-50%, 0) scale(1);
+    animation: secretPulse 2.4s 1s infinite
+}
+
+.secret-seal {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    background: #8b514d;
+    color: #fff;
+    font: italic 1rem 'Cormorant Garamond';
+    box-shadow: inset 0 0 0 3px #ffffff28
+}
+
+.secret-invite span:last-child {
+    font-size: .62rem;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    white-space: nowrap
+}
+
+@keyframes secretPulse {
+    50% {
+        box-shadow: 0 15px 55px #151b1550, 0 0 0 8px #ffffff30
+    }
+}
+
+.surprise {
+    position: fixed;
+    inset: 0;
+    z-index: 300;
+    background: #202720;
+    display: grid;
+    place-items: center;
+    color: #fff;
+    opacity: 0;
+    visibility: hidden;
+    transition: .7s;
+    overflow: hidden
+}
+
+.surprise.open {
+    opacity: 1;
+    visibility: visible
+}
+
+.surprise:before,
+.surprise:after {
+    content: '';
+    position: absolute;
+    width: 55vw;
+    height: 55vw;
+    border: 1px solid #ffffff12;
+    border-radius: 50%;
+    animation: orbit 18s linear infinite
+}
+
+.surprise:after {
+    width: 75vw;
+    height: 75vw;
+    animation-direction: reverse
+}
+
+@keyframes orbit {
+    to {
+        transform: rotate(360deg)
+    }
+}
+
+.surprise-close {
+    position: absolute;
+    right: 25px;
+    top: 25px;
+    z-index: 3;
+    width: 45px;
+    height: 45px;
+    border: 1px solid #ffffff55;
+    border-radius: 50%;
+    background: transparent;
+    color: #fff;
+    font-size: 1.2rem;
+    cursor: pointer
+}
+
+.surprise-inner {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    padding: 30px;
+    max-width: 750px
+}
+
+.surprise-inner .eyebrow {
+    color: #d4bd91
+}
+
+.surprise-inner h2 {
+    font: italic 400 clamp(3rem, 7vw, 6rem)/.9 'Cormorant Garamond';
+    margin: 12px 0
+}
+
+.thanks-copy {
+    font-size: .8rem;
+    line-height: 1.9;
+    color: #d9ddd7;
+    max-width: 580px;
+    margin: 18px auto
+}
+
+.voice-state {
+    font-size: .58rem;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    color: #d4bd91;
+    min-height: 20px
+}
+
+.chibi-scene {
+    height: 220px;
+    position: relative;
+    margin: 18px auto 5px;
+    width: 310px
+}
+
+.chibi {
+    position: absolute;
+    bottom: 20px;
+    width: 110px;
+    height: 155px;
+    transition: .5s
+}
+
+.chibi.groom {
+    left: 45px;
+    animation: groomKiss 3s ease-in-out infinite
+}
+
+.chibi.bride {
+    right: 45px;
+    animation: brideKiss 3s ease-in-out infinite
+}
+
+.chibi-head {
+    position: absolute;
+    left: 25px;
+    top: 0;
+    width: 66px;
+    height: 70px;
+    border-radius: 48% 48% 45% 45%;
+    background: #f4cdb5;
+    box-shadow: inset 0 -7px #e8bba4
+}
+
+.groom .chibi-head:before {
+    content: '';
+    position: absolute;
+    inset: -5px 1px 43px -1px;
+    background: #201c19;
+    border-radius: 50% 55% 25% 35%;
+    transform: rotate(-5deg)
+}
+
+.bride .chibi-head:before {
+    content: '';
+    position: absolute;
+    inset: -6px -5px 23px;
+    background: #2a211e;
+    border-radius: 50% 50% 45% 45%;
+    z-index: -1
+}
+
+.chibi-head:after {
+    content: '•  •';
+    position: absolute;
+    top: 29px;
+    left: 18px;
+    color: #3d2b25;
+    font-size: 12px;
+    letter-spacing: 10px;
+    white-space: nowrap
+}
+
+.chibi-body {
+    position: absolute;
+    left: 20px;
+    top: 62px;
+    width: 76px;
+    height: 92px;
+    border-radius: 30px 30px 12px 12px
+}
+
+.groom .chibi-body {
+    background: #151a17;
+    clip-path: polygon(0 0, 100% 0, 88% 100%, 12% 100%)
+}
+
+.groom .chibi-body:after {
+    content: '◆';
+    color: #fff;
+    position: absolute;
+    top: 8px;
+    left: 31px;
+    font-size: 13px
+}
+
+.bride .chibi-body {
+    background: #f8f1e7;
+    clip-path: polygon(25% 0, 75% 0, 100% 100%, 0 100%)
+}
+
+.bride .chibi-body:after {
+    content: '✿';
+    position: absolute;
+    color: #b79b6c;
+    top: 22px;
+    left: 27px;
+    font-size: 20px
+}
+
+.kiss-heart {
+    position: absolute;
+    left: 145px;
+    top: 50px;
+    color: #d7877d;
+    font-size: 24px;
+    animation: heartFloat 3s ease-out infinite;
+    opacity: 0
+}
+
+.kiss-heart.h2 {
+    animation-delay: 1s;
+    font-size: 14px;
+    left: 130px
+}
+
+.kiss-heart.h3 {
+    animation-delay: 2s;
+    font-size: 18px;
+    left: 170px
+}
+
+@keyframes heartFloat {
+    0% {
+        opacity: 0;
+        transform: translateY(20px) scale(.5)
+    }
+
+    30% {
+        opacity: 1
+    }
+
+    100% {
+        opacity: 0;
+        transform: translateY(-90px) scale(1.2) rotate(18deg)
+    }
+}
+
+@keyframes groomKiss {
+
+    0%,
+    35%,
+    100% {
+        transform: translateX(0) rotate(0)
+    }
+
+    50%,
+    68% {
+        transform: translateX(13px) rotate(4deg)
+    }
+}
+
+@keyframes brideKiss {
+
+    0%,
+    35%,
+    100% {
+        transform: translateX(0) rotate(0)
+    }
+
+    50%,
+    68% {
+        transform: translateX(-13px) rotate(-4deg)
+    }
+}
+
+footer {
+    background: #202720;
+    color: #f8f4ec;
+    text-align: center;
+    padding: 85px 25px
+}
+
+.footnames {
+    font: italic clamp(3.5rem, 8vw, 7rem) 'Cormorant Garamond';
+    margin: 18px
+}
+
+.small {
+    font-size: .58rem;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    opacity: .65
+}
+
+.scratch-section {
+    background: linear-gradient(135deg, #eee4d6, #f8f3eb);
+    text-align: center;
+    overflow: hidden
+}
+
+.scratch-head h2 {
+    font: italic 400 clamp(3rem, 6vw, 6rem)/.95 'Cormorant Garamond';
+    margin: 12px 0
+}
+
+.scratch-head>p:last-child {
+    font-size: .78rem;
+    color: #6c716a
+}
+
+.scratch-card {
+    position: relative;
+    width: min(880px, 100%);
+    height: clamp(380px, 55vw, 540px);
+    margin: 55px auto 0;
+    border: 10px solid #fbf8f2;
+    box-shadow: 0 30px 80px #4236242b;
+    overflow: hidden;
+    cursor: crosshair;
+    touch-action: none
+}
+
+.scratch-reveal {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 35px;
+    color: #fff;
+    background: linear-gradient(#20262080, #20262080), url('299dd102e846681831573.jpg') center 56%/cover
+}
+
+.scratch-reveal strong {
+    font: italic 400 clamp(2.4rem, 5vw, 5rem)/1 'Cormorant Garamond';
+    margin: 18px 0;
+    text-shadow: 0 4px 25px #0008
+}
+
+.scratch-reveal span {
+    font-size: .62rem;
+    letter-spacing: .2em;
+    text-transform: uppercase
+}
+
+.scratch-card canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    transition: opacity 1s;
+    touch-action: none
+}
+
+.scratch-card.revealed canvas {
+    opacity: 0;
+    pointer-events: none
+}
+
+.scratch-hint {
+    position: absolute;
+    left: 50%;
+    bottom: 22px;
+    transform: translateX(-50%);
+    z-index: 2;
+    background: #fbf8f2e8;
+    color: var(--ink);
+    padding: 10px 17px;
+    border-radius: 30px;
+    font-size: .58rem;
+    letter-spacing: .13em;
+    text-transform: uppercase;
+    pointer-events: none;
+    transition: .4s
+}
+
+.scratch-card.scratching .scratch-hint,
+.scratch-card.revealed .scratch-hint {
+    opacity: 0
+}
+
+.scratch-card.revealed {
+    animation: scratchGlow 1.2s ease
+}
+
+@keyframes scratchGlow {
+    50% {
+        box-shadow: 0 30px 90px #b79b6c80, 0 0 0 12px #fff6
+    }
+}
+
+@media(max-width:700px) {
+    .section {
+        padding: 80px 24px
+    }
+
+    .navlinks {
+        display: none
+    }
+
+    .hero-content {
+        padding: 0 24px 12vh
+    }
+
+    .hero h1 em {
+        margin-left: 8vw
+    }
+
+    .scroll {
+        display: none
+    }
+
+    .names {
+        grid-template-columns: 1fr;
+        text-align: center
+    }
+
+    .person:last-child {
+        text-align: center
+    }
+
+    .amp {
+        line-height: .35
+    }
+
+    .eventgrid,
+    .gallery,
+    .giftgrid,
+    .groom-voice {
+        grid-template-columns: 1fr
+    }
+
+    .albumgrid {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 360px 220px 220px
+    }
+
+    .album-item:first-child {
+        grid-column: 1/3;
+        grid-row: auto
+    }
+
+    .album-item:nth-child(4) {
+        grid-column: 1/3
+    }
+
+    .lightbox-nav {
+        top: auto;
+        bottom: 22px
+    }
+
+    .lightbox-count {
+        bottom: 39px
+    }
+
+    .card+.card {
+        border-left: 0;
+        border-top: 1px solid var(--line)
+    }
+
+    .photo {
+        grid-row: 1;
+        clip-path: inset(5%);
+        min-height: 70vh
+    }
+
+    .gallerycopy {
+        padding: 80px 24px
+    }
+
+    .album-item:nth-child(5) {
+        grid-column: 1/3;
+        min-height: 280px
+    }
+
+    .rsvp form {
+        grid-template-columns: 1fr
+    }
+
+    .field,
+    .full,
+    .submit {
+        grid-column: 1
+    }
+
+    .cover h1 {
+        font-size: 4rem
+    }
+
+    .secret-invite {
+        bottom: calc(82px + env(safe-area-inset-bottom, 0px));
+        left: 16px;
+        width: auto;
+        max-width: calc(100vw - 96px);
+        z-index: 280;
+        transform: translateY(40px) scale(.8)
+    }
+
+    body:not(.lock) .secret-invite,
+    body.invite-opened .secret-invite.show {
+        display: flex !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        pointer-events: auto !important;
+        transform: translateY(0) scale(1) !important
+    }
+
+    .secret-invite span:last-child {
+        white-space: normal;
+        line-height: 1.45;
+        text-align: left
+    }
+
+    .surprise {
+        overflow-y: auto;
+        align-items: start
+    }
+
+    .surprise-inner {
+        min-height: 100%;
+        padding: 76px 20px 45px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center
+    }
+
+    .surprise-inner h2 {
+        font-size: clamp(2.55rem, 12vw, 4rem)
+    }
+
+    .thanks-copy {
+        font-size: .75rem;
+        margin-top: 10px
+    }
+
+    .surprise-close {
+        position: fixed;
+        top: calc(16px + env(safe-area-inset-top, 0px));
+        right: 16px
+    }
+
+    .chibi-scene {
+        transform: scale(.88);
+        margin-left: calc(50% - 155px)
+    }
+}
+
+@media(prefers-reduced-motion:reduce) {
+    * {
+        animation: none !important;
+        transition: .01ms !important
+    }
+
+    .reveal {
+        opacity: 1;
+        transform: none
+    }
+
+    .quote {
+        background-attachment: scroll
+    }
+
+    .heart-layer,
+    .heart-burst {
+        display: none
+    }
+}
