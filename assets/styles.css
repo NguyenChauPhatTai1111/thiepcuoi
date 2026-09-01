@@ -1016,6 +1016,8 @@ nav {
     white-space: nowrap
 }
 
+.mobile-secret-trigger{display:none}
+
 @keyframes secretPulse {
     50% {
         box-shadow: 0 15px 55px #151b1550, 0 0 0 8px #ffffff30
@@ -1496,27 +1498,46 @@ footer {
     }
 
     .secret-invite {
-        bottom: calc(82px + env(safe-area-inset-bottom, 0px));
-        left: 16px;
-        width: auto;
-        max-width: calc(100vw - 96px);
-        z-index: 280;
-        transform: translateY(40px) scale(.8)
+        display:none !important
     }
 
-    body:not(.lock) .secret-invite,
-    body.invite-opened .secret-invite.show {
+    .mobile-secret-trigger {
+        position:fixed;
+        left:16px;
+        bottom:calc(82px + env(safe-area-inset-bottom, 0px));
+        z-index:290;
+        align-items:center;
+        gap:10px;
+        max-width:calc(100vw - 96px);
+        padding:9px 15px 9px 9px;
+        border:1px solid #ffffff80;
+        border-radius:50px;
+        background:#fbf8f2f2;
+        color:var(--ink);
+        box-shadow:0 14px 45px #151b1550;
+        opacity:0;
+        visibility:hidden;
+        pointer-events:none;
+        transform:translateY(20px);
+        transition:.45s
+    }
+
+    body:not(.lock) .mobile-secret-trigger {
         display: flex !important;
         opacity: 1 !important;
         visibility: visible !important;
         pointer-events: auto !important;
-        transform: translateY(0) scale(1) !important
+        transform: translateY(0) !important
     }
 
-    .secret-invite span:last-child {
+    .mobile-secret-trigger span:last-child {
         white-space: normal;
         line-height: 1.45;
-        text-align: left
+        text-align: left;
+        font-size:.6rem;
+        font-weight:500;
+        letter-spacing:.08em;
+        text-transform:uppercase
     }
 
     .surprise {

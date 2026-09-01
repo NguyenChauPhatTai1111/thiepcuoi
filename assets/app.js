@@ -130,6 +130,7 @@ const secretInvite = document.querySelector('#secretInvite');
             surprise.classList.add('open'); surprise.setAttribute('aria-hidden', 'false');
             document.body.classList.add('lock'); setTimeout(speakThanks, 650);
         });
+        document.querySelector('#mobileSecretTrigger')?.addEventListener('click', () => secretInvite.click());
 
         function closeSurprise() {
             surprise.classList.remove('open'); surprise.setAttribute('aria-hidden', 'true');
