@@ -907,20 +907,22 @@ nav {
 .floating-heart {
     position: absolute;
     bottom: -45px;
-    color: #c98f8a;
+    color: #b96062;
     opacity: 0;
     font-family: 'Cormorant Garamond', serif;
-    filter: drop-shadow(0 4px 8px #6f484825);
+    font-weight: 700;
+    line-height: 1;
+    filter: drop-shadow(0 2px 3px #6f484866) drop-shadow(0 6px 12px #6f484833);
     animation: heartDrift var(--duration, 10s) linear forwards;
     will-change: transform, opacity
 }
 
 .floating-heart.gold {
-    color: #b79b6c
+    color: #a77d3f
 }
 
 .floating-heart.cream {
-    color: #f5e9db
+    color: #d99d8f
 }
 
 .heart-burst {
@@ -933,6 +935,37 @@ nav {
     will-change: transform, opacity
 }
 
+.heart-trail {
+    position: fixed;
+    z-index: 490;
+    pointer-events: none;
+    color: #bd6467;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: var(--trail-size, 18px);
+    font-weight: 700;
+    line-height: 1;
+    filter: drop-shadow(0 2px 4px #6f484855);
+    transform: translate(-50%, -50%);
+    animation: heartTrail 1.15s ease-out forwards;
+    will-change: transform, opacity
+}
+
+.heart-trail.touch {
+    color: #c27772;
+    animation-duration: 1.35s
+}
+
+.typed-character {
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(.28em);
+    filter: blur(3px)
+}
+
+.typing-visible .typed-character {
+    animation: typeCharacter .42s cubic-bezier(.2, .75, .3, 1) var(--character-delay) forwards
+}
+
 @keyframes heartDrift {
     0% {
         opacity: 0;
@@ -940,11 +973,11 @@ nav {
     }
 
     12% {
-        opacity: .42
+        opacity: .78
     }
 
     70% {
-        opacity: .28
+        opacity: .58
     }
 
     100% {
@@ -966,6 +999,30 @@ nav {
     100% {
         opacity: 0;
         transform: translate(calc(-50% + var(--x)), calc(-50% + var(--y))) rotate(var(--r)) scale(1.15)
+    }
+}
+
+@keyframes heartTrail {
+    0% {
+        opacity: .92;
+        transform: translate(-50%, -35%) rotate(0) scale(.72)
+    }
+
+    45% {
+        opacity: .78
+    }
+
+    100% {
+        opacity: 0;
+        transform: translate(calc(-50% + var(--trail-x)), -90px) rotate(var(--trail-r)) scale(1.18)
+    }
+}
+
+@keyframes typeCharacter {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+        filter: blur(0)
     }
 }
 
@@ -1590,7 +1647,14 @@ footer {
     }
 
     .heart-layer,
-    .heart-burst {
+    .heart-burst,
+    .heart-trail {
         display: none
+    }
+
+    .typed-character {
+        opacity: 1;
+        transform: none;
+        filter: none
     }
 }

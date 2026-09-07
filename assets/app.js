@@ -202,7 +202,7 @@ const heartLayer = document.querySelector('#heartLayer');
             heart.className = `floating-heart ${Math.random() > .72 ? 'gold' : Math.random() > .7 ? 'cream' : ''}`;
             heart.textContent = Math.random() > .55 ? '♡' : '♥';
             heart.style.left = `${4 + Math.random() * 92}%`;
-            heart.style.fontSize = `${12 + Math.random() * 17}px`;
+            heart.style.fontSize = `${20 + Math.random() * 20}px`;
             heart.style.setProperty('--duration', `${8 + Math.random() * 7}s`);
             heart.style.setProperty('--sway', `${-55 + Math.random() * 110}px`);
             heart.style.setProperty('--rotate', `${-50 + Math.random() * 100}deg`);
@@ -233,6 +233,73 @@ const heartLayer = document.querySelector('#heartLayer');
                 document.body.appendChild(heart);
                 heart.addEventListener('animationend', () => heart.remove());
             }
+        }
+
+        let lastTrailHeart = 0;
+        let lastTrailX = -100;
+        let lastTrailY = -100;
+
+        function createTrailHeart(x, y, isTouch) {
+            const heart = document.createElement('span');
+            heart.className = `heart-trail${isTouch ? ' touch' : ''}`;
+            heart.textContent = Math.random() > .45 ? '♥' : '♡';
+            heart.style.left = `${x}px`;
+            heart.style.top = `${y}px`;
+            heart.style.setProperty('--trail-x', `${-18 + Math.random() * 36}px`);
+            heart.style.setProperty('--trail-r', `${-28 + Math.random() * 56}deg`);
+            heart.style.setProperty('--trail-size', `${isTouch ? 18 + Math.random() * 10 : 15 + Math.random() * 9}px`);
+            document.body.appendChild(heart);
+            heart.addEventListener('animationend', () => heart.remove());
+        }
+
+        document.addEventListener('pointermove', event => {
+            if (reduceMotion || !document.body.classList.contains('invite-opened')) return;
+            const isTouch = event.pointerType === 'touch';
+            const now = performance.now();
+            const minDelay = isTouch ? 95 : 65;
+            const distance = Math.hypot(event.clientX - lastTrailX, event.clientY - lastTrailY);
+            if (now - lastTrailHeart < minDelay || distance < (isTouch ? 14 : 9)) return;
+            lastTrailHeart = now;
+            lastTrailX = event.clientX;
+            lastTrailY = event.clientY;
+            createTrailHeart(event.clientX, event.clientY, isTouch);
+        }, { passive: true });
+
+        function prepareTypedText(element) {
+            if (reduceMotion || element.dataset.typedReady) return;
+            element.dataset.typedReady = 'true';
+            element.setAttribute('aria-label', element.innerText.replace(/\s+/g, ' ').trim());
+            let characterIndex = 0;
+            const walker = document.createTreeWalker(element, NodeFilter.SHOW_TEXT);
+            const textNodes = [];
+            while (walker.nextNode()) textNodes.push(walker.currentNode);
+
+            textNodes.forEach(node => {
+                if (!node.nodeValue.trim()) return;
+                const fragment = document.createDocumentFragment();
+                Array.from(node.nodeValue).forEach(character => {
+                    const span = document.createElement('span');
+                    span.className = 'typed-character';
+                    span.setAttribute('aria-hidden', 'true');
+                    span.textContent = character === ' ' ? '\u00a0' : character;
+                    span.style.setProperty('--character-delay', `${Math.min(characterIndex * 38, 1700)}ms`);
+                    fragment.appendChild(span);
+                    characterIndex++;
+                });
+                node.replaceWith(fragment);
+            });
+        }
+
+        const typedTexts = document.querySelectorAll('main h1, main h2, main h3, main .eyebrow, footer h2, footer .eyebrow');
+        typedTexts.forEach(prepareTypedText);
+        if (!reduceMotion) {
+            const typingObserver = new IntersectionObserver(entries => entries.forEach(entry => {
+                if (!entry.isIntersecting) return;
+                entry.target.classList.add('typing-visible');
+                typingObserver.unobserve(entry.target);
+            }), { threshold: .35, rootMargin: '0px 0px -6% 0px' });
+            const startTyping = () => typedTexts.forEach(element => typingObserver.observe(element));
+            document.querySelector('#open').addEventListener('click', startTyping, { once: true });
         }
 
         document.querySelector('#open').addEventListener('click', event => {
