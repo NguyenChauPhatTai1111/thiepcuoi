@@ -1998,3 +1998,155 @@ h1, h2, h3, blockquote {
     clip-path: inset(50%);
     white-space: nowrap;
 }
+/* Opening invitation card, with the couple's photo behind it. */
+.cover {
+    padding: 32px 20px;
+    overflow-y: auto;
+    background: linear-gradient(120deg, #10261799, #10261755),
+        url('299dd102e846681831573.jpg') center 44% / cover;
+    color: #edf1e3;
+}
+.cover-card {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    width: min(100%, 360px);
+    margin: auto;
+    padding: 32px 28px 40px;
+    border: 1px solid #b9c5a840;
+    border-radius: 8px;
+    background: linear-gradient(145deg, #233f2a, #1a3222);
+    box-shadow: 0 28px 90px #07130ca6, inset 0 0 35px #d9dfc505;
+}
+.cover-card > :not(.cover-corner) {
+    position: relative;
+    z-index: 1;
+}
+.cover-seal {
+    display: grid;
+    place-items: center;
+    width: 62px;
+    height: 62px;
+    margin: 0 auto 28px;
+    border: 5px double #8b9c8166;
+    border-radius: 50%;
+    background: #e4ebd9;
+    color: #75856b;
+    box-shadow: 0 0 28px #dceac43b;
+    font: 32px/1 'Times New Roman', serif;
+}
+.cover .cover-card h1 {
+    margin: 0;
+    font: 400 clamp(1.85rem, 7vw, 2.3rem)/1.35 var(--font-display);
+    text-wrap: balance;
+}
+.cover .cover-card h1 span {
+    margin: 2px 0;
+    font: italic 1.15rem/1.2 var(--font-display);
+}
+.cover-divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin: 18px auto 10px;
+    color: #bdcbb2;
+}
+.cover-divider:before, .cover-divider:after {
+    content: '';
+    width: 44px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #bdcbb2);
+}
+.cover-divider:after { transform: rotate(180deg); }
+.cover .cover-date {
+    margin: 0;
+    font: 400 1.0625rem/1.7 var(--font-display);
+    letter-spacing: 0;
+    color: #d1dbc7;
+}
+.cover-invitation {
+    margin: 22px 0 0;
+    font: 400 1rem/1.7 var(--font-display);
+    color: #d1dbc7;
+}
+.cover .open-btn {
+    min-height: 50px;
+    min-width: 160px;
+    margin-top: 24px;
+    padding: 12px 28px;
+    border: 1px solid #e3ecd7;
+    border-radius: 999px;
+    background: #e9f0df;
+    color: #24412c;
+    font: 500 1.0625rem/1.5 var(--font-display);
+    letter-spacing: 0;
+    box-shadow: 0 4px 22px #deebc926;
+}
+.cover .open-btn:hover {
+    background: #f6faee;
+    box-shadow: 0 6px 28px #deebc945;
+}
+.cover-corner {
+    position: absolute;
+    z-index: 0;
+    color: #b8c69b;
+    opacity: .15;
+    font: 180px/1 'Times New Roman', serif;
+    pointer-events: none;
+    user-select: none;
+}
+.cover-corner-top { top: -24px; left: -64px; transform: rotate(30deg); }
+.cover-corner-bottom { bottom: -24px; right: -64px; transform: rotate(30deg); }
+@media(max-height:620px) {
+    .cover { padding-block: 16px; }
+    .cover-card { padding-block: 22px; }
+    .cover-seal { width: 48px; height: 48px; margin-bottom: 16px; font-size: 26px; }
+    .cover-divider { margin-top: 12px; }
+    .cover-invitation { margin-top: 14px; }
+    .cover .open-btn { margin-top: 16px; }
+}
+
+/* Subtle scroll depth, with overscan so moving photos never expose an edge. */
+.hero-bg {
+    inset: -36px;
+    translate: 0 var(--photo-shift, 0px);
+}
+.quote, .photo {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    background: #202620;
+}
+.quote::before, .photo::before {
+    content: '';
+    position: absolute;
+    inset: -36px;
+    z-index: -1;
+    pointer-events: none;
+    translate: 0 var(--photo-shift, 0px);
+}
+.quote::before {
+    background: linear-gradient(#2026207a, #2026207a),
+        url('d76767fa5ebedee087af5.jpg') center 67% / cover;
+}
+.photo::before {
+    background: url('19e4f461cd254d7b14341.jpg') center 45% / cover;
+}
+.photo {
+    box-shadow: inset 0 0 0 1px #ffffff30;
+}
+#albumSlider .album-item {
+    border: 3px solid #fbf8f2;
+    box-shadow: 0 20px 38px #20262033, 0 5px 12px #2026201a;
+}
+#albumSlider .album-item img {
+    scale: 1.1;
+    translate: 0 var(--photo-shift, 0px);
+}
+@media(prefers-reduced-motion:reduce) {
+    .hero-bg, .quote::before, .photo::before, #albumSlider .album-item img {
+        translate: none;
+    }
+    #albumSlider .album-item img { scale: 1; }
+}
