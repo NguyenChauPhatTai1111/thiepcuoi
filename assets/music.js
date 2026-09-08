@@ -1,13 +1,10 @@
-// Keep playback independent of album and invitation effects.
+﻿// Audio-only playback: no iframe, video player, or external navigation.
 const music = document.querySelector('#music');
-const yt = document.querySelector('#yt');
-
+const backgroundMusic = document.querySelector('#backgroundMusic');
 const musicStatus = document.querySelector('#musicStatus');
-let weddingPlayer = null;
-let musicWanted = false;
 let playing = false;
-let musicReady = false;
-let musicTimer;
+let musicWanted = false;
+let musicRequest = 0;
 
 function updateMusicState(active) {
     playing = active;
@@ -18,84 +15,52 @@ function updateMusicState(active) {
     music.textContent = active ? '♪' : '♫';
     music.title = active ? 'Tắt nhạc nền' : 'Bật nhạc nền';
 }
-function musicNeedsTap(message) {
-    clearTimeout(musicTimer);
-
-    musicWanted = false;
-    updateMusicState(false);
-    musicStatus.textContent = message;
-    music.title = message;
-}
 function setMusicVolume(volume) {
-    if (musicReady) weddingPlayer.setVolume(volume);
+    backgroundMusic.volume = Math.max(0, Math.min(1, volume / 100));
 }
-function toggle(value) {
+async function toggle(value) {
     musicWanted = value ?? !musicWanted;
-    clearTimeout(musicTimer);
+    const request = ++musicRequest;
     if (!musicWanted) {
-        if (musicReady) weddingPlayer.pauseVideo();
+        backgroundMusic.pause();
         updateMusicState(false);
-        musicStatus.textContent = 'Nhạc đã tạm dừng.';
         return;
     }
-
-    musicStatus.textContent = musicReady ? 'Đang mở nhạc…' : 'Đang tải nhạc…';
-    if (musicReady) {
-        weddingPlayer.unMute();
-        weddingPlayer.setVolume(100);
-        weddingPlayer.playVideo();
+    if (!backgroundMusic.getAttribute('src') && !backgroundMusic.querySelector('source[src]')) {
+        musicWanted = false;
+        updateMusicState(false);
+        musicStatus.textContent = 'Nhạc nền đang được cập nhật.';
+        music.title = musicStatus.textContent;
+        return;
     }
-    musicTimer = setTimeout(() => {
-        if (!playing && musicWanted) musicNeedsTap('Chạm nút nhạc ♫ để bắt đầu nghe nhạc.');
-    }, 8000);
+    backgroundMusic.muted = false;
+    try {
+        // Call directly from the opening/button gesture to preserve mobile activation.
+        await backgroundMusic.play();
+    } catch (error) {
+        if (request !== musicRequest) return;
+        musicWanted = false;
+        updateMusicState(false);
+        musicStatus.textContent = error.name === 'NotAllowedError'
+            ? 'Chạm nút nhạc để bật âm thanh.'
+            : 'Chưa tải được nhạc. Chạm nút nhạc để thử lại.';
+        music.title = musicStatus.textContent;
+    }
 }
-window.onYouTubeIframeAPIReady = function () {
-    if (weddingPlayer) return;
-    const source = new URL(yt.src);
-    source.searchParams.set('playsinline', '1');
-    source.searchParams.set('fs', '0');
-    source.searchParams.set('disablekb', '1');
-    source.searchParams.set('controls', '0');
-    yt.setAttribute('allow', "autoplay; encrypted-media; fullscreen 'none'; picture-in-picture 'none'");
-    if (/^https?:$/.test(location.protocol)) source.searchParams.set('origin', location.origin);
-    yt.src = source.href;
-    weddingPlayer = new YT.Player('yt', {
-        events: {
-            onReady: () => {
-                musicReady = true;
-                if (musicWanted) toggle(true);
-            },
-            onStateChange: event => {
-                const active = event.data === YT.PlayerState.PLAYING;
-                updateMusicState(active);
-                if (active) {
-                    clearTimeout(musicTimer);
-                    musicWanted = true;
-                    musicStatus.textContent = 'Đang phát nhạc nền thiệp cưới';
-                } else if (event.data === YT.PlayerState.PAUSED) {
-                    musicWanted = false;
-                    clearTimeout(musicTimer);
-                    musicStatus.textContent = 'Nhạc đã tạm dừng. Chạm nút nhạc để nghe tiếp.';
-                } else if (event.data === YT.PlayerState.ENDED && musicWanted) {
-                    weddingPlayer.playVideo();
-                }
-            },
-            onAutoplayBlocked: () => {
-                musicWanted = false;
-                updateMusicState(false);
-                musicNeedsTap('Chạm nút nhạc ♫ để bật âm thanh.');
-            },
-            onError: event => {
-                musicWanted = false;
-                updateMusicState(false);
-                musicNeedsTap('Chưa phát được nhạc. Chạm nút nhạc để thử lại.');
-            }
-        }
-    });
-};
+backgroundMusic.addEventListener('playing', () => {
+    if (!musicWanted) { backgroundMusic.pause(); return; }
+    updateMusicState(true);
+    musicStatus.textContent = 'Đang phát nhạc nền.';
+});
+backgroundMusic.addEventListener('pause', () => updateMusicState(false));
+backgroundMusic.addEventListener('waiting', () => updateMusicState(false));
+backgroundMusic.addEventListener('error', () => {
+    musicWanted = false;
+    updateMusicState(false);
+    musicStatus.textContent = 'Chưa tải được nhạc nền.';
+});
 document.querySelector('#open').addEventListener('click', () => toggle(true), { once: true });
 music.addEventListener('click', event => {
     event.preventDefault();
     toggle();
 });
-

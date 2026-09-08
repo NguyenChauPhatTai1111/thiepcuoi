@@ -12,7 +12,7 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600&family=Lora:ital,wght@0,400;0,500;1,400&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="assets/styles.css?v=20260908-12">
+    <link rel="stylesheet" href="assets/styles.css?v=20260908-14">
 </head>
 
 <body class="lock">
@@ -47,12 +47,8 @@
         </div>
     </nav>
     <button class="music" id="music" type="button" aria-label="Bật nhạc" aria-pressed="false" title="Nhạc nền thiệp cưới">♫</button>
-    <div class="music-embed" aria-hidden="true">
-        <iframe id="yt" width="320" height="200" tabindex="-1"
-            src="https://www.youtube.com/embed/QCr4Wf_eJHo?enablejsapi=1&amp;playsinline=1&amp;loop=1&amp;playlist=QCr4Wf_eJHo&amp;controls=0&amp;fs=0&amp;disablekb=1&amp;mute=0&amp;rel=0"
-            title="Nhạc nền thiệp cưới" referrerpolicy="strict-origin-when-cross-origin"
-            allow="autoplay; encrypted-media; fullscreen 'none'; picture-in-picture 'none'"></iframe>
-    </div>
+    <!-- Add the supplied song file as the src of backgroundMusic. -->
+    <audio id="backgroundMusic" preload="metadata" loop playsinline></audio>
     <span id="musicStatus" class="music-status" role="status"></span>
     <main>
         <section class="hero">
@@ -301,10 +297,10 @@
     </footer>
     <button class="auto-scroll-toggle" id="autoScrollToggle" type="button" aria-pressed="false" hidden>Tự cuộn ↓</button>
     <div class="toast" id="toast">Cảm ơn bạn! Lời xác nhận đã được ghi nhận ♡</div>
-    <script src="assets/music.js?v=20260908-13"></script>
+    <script src="assets/music.js?v=20260908-14"></script>
     <script src="assets/app.js?v=20260908-13"></script>
     <script src="assets/photo-depth.js?v=20260908-12"></script>
-    <script src="https://www.youtube.com/iframe_api"></script>
+
 </body>
 
 </html>

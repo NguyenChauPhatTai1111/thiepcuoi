@@ -265,7 +265,6 @@ nav {
     }
 }
 
-#yt { display: block; width: 100%; height: 200px; border: 0; }
 
 .hero {
     min-height: 100svh;
@@ -1981,14 +1980,6 @@ h1, h2, h3, blockquote {
     #albumSlider .album-item { transition: none; }
 }
 
-.music-embed {
-    position: fixed;
-    left: -400px;
-    top: 0;
-    width: 320px;
-    height: 200px;
-    pointer-events: none;
-}
 .music-status {
     position: absolute;
     width: 1px;
