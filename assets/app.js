@@ -17,164 +17,45 @@ window.addEventListener('pageshow', scheduleReadingProgress);
 new ResizeObserver(scheduleReadingProgress).observe(document.body);
 updateReadingProgress();
 
-// Layered album: center photo opens; side photos rotate into the center.
+// Swiper album: natural-color slides, automatic playback and touch navigation.
 const albumSlider = document.querySelector('#albumSlider');
-const carouselCards = [...albumSlider.querySelectorAll('.album-item')];
-const albumDots = document.querySelector('#albumDots');
-let albumCurrent = 0;
-let albumDrag = null;
-let suppressAlbumClick = false;
-const carouselDots = carouselCards.map((card, index) => {
-    const dot = document.createElement('button');
-    dot.type = 'button';
-    dot.setAttribute('aria-label', 'Xem ảnh ' + (index + 1));
-    dot.addEventListener('click', () => selectAlbumPhoto(index));
-    albumDots.append(dot);
-    return dot;
+const albumMotion = matchMedia('(prefers-reduced-motion: reduce)');
+const albumPause = document.querySelector('#albumAutoplay');
+let albumPaused = albumMotion.matches;
+let albumVisible = false;
+const weddingAlbum = new Swiper(albumSlider, {
+    slidesPerView: 1.18, centeredSlides: true, spaceBetween: 18,
+    loop: true, speed: albumMotion.matches ? 0 : 1100, grabCursor: true,
+    autoplay: { delay: 3200, disableOnInteraction: false, pauseOnMouseEnter: true },
+    breakpoints: { 700: { slidesPerView: 2.2, spaceBetween: 28 }, 1100: { slidesPerView: 2.6, spaceBetween: 36 } },
+    navigation: { prevEl: '#albumPrev', nextEl: '#albumNext' },
+    pagination: { el: '#albumDots', clickable: true, bulletElement: 'button' },
+    keyboard: { enabled: true, onlyInViewport: true },
+    mousewheel: { forceToAxis: false, thresholdDelta: 25, thresholdTime: 1150, sensitivity: 1 },
+    a11y: { prevSlideMessage: 'Ảnh trước', nextSlideMessage: 'Ảnh tiếp theo', paginationBulletMessage: 'Xem ảnh {{index}}' },
+    on: { slideChange() {
+        document.querySelector('#albumPosition').textContent = (this.realIndex + 1) + ' / 5';
+    } }
 });
-function albumOffset(index, current, count) {
-    const half = Math.floor(count / 2);
-    return ((index - current + half + count) % count) - half;
+function syncAlbumPlayback() {
+    const blocked = albumPaused || albumMotion.matches || !albumVisible || document.hidden ||
+        document.body.classList.contains('lock');
+    if (blocked) weddingAlbum.autoplay.stop(); else weddingAlbum.autoplay.start();
+    albumPause.textContent = albumPaused || albumMotion.matches ? 'Phát album' : 'Tạm dừng album';
+    albumPause.setAttribute('aria-pressed', String(albumPaused || albumMotion.matches));
 }
-function selectAlbumPhoto(index) {
-    albumCurrent = (index + carouselCards.length) % carouselCards.length;
-    carouselCards.forEach((card, i) => {
-        const offset = albumOffset(i, albumCurrent, carouselCards.length);
-        const depth = Math.abs(offset);
-        card.style.transform = 'translateX(' + (offset * 60) + '%) translateZ(' +
-            (-depth * 150) + 'px) rotateY(' + (offset * 45) + 'deg) scale(' +
-            (depth === 0 ? 1 : depth === 1 ? .85 : .7) + ')';
-        card.style.opacity = depth === 0 ? '1' : depth === 1 ? '.75' : '.5';
-        card.style.zIndex = 10 - depth;
-        card.classList.toggle('is-current', offset === 0);
-        card.setAttribute('aria-label', (offset === 0 ? 'Phóng lớn: ' : 'Chọn ảnh: ') + card.querySelector('img').alt);
-        carouselDots[i].setAttribute('aria-current', String(offset === 0));
-    });
-    document.querySelector('#albumPosition').textContent = (albumCurrent + 1) + ' / ' + carouselCards.length;
-}
-document.querySelector('#albumPrev').addEventListener('click', () => selectAlbumPhoto(albumCurrent - 1));
-document.querySelector('#albumNext').addEventListener('click', () => selectAlbumPhoto(albumCurrent + 1));
-albumSlider.addEventListener('pointerdown', event => {
-    if (event.button !== 0 || !event.isPrimary) return;
-    suppressAlbumClick = false;
-    albumDrag = { x: event.clientX, y: event.clientY, id: event.pointerId };
-});
-albumSlider.addEventListener('pointermove', event => {
-    if (!albumDrag || event.pointerId !== albumDrag.id) return;
-    const dx = event.clientX - albumDrag.x;
-    if (Math.abs(dx) > 10 && Math.abs(dx) > Math.abs(event.clientY - albumDrag.y)) {
-        suppressAlbumClick = true;
-        albumSlider.setPointerCapture(event.pointerId);
-    }
-});
-window.addEventListener('pointerup', event => {
-    if (!albumDrag || event.pointerId !== albumDrag.id) return;
-    const dx = event.clientX - albumDrag.x;
-    if (suppressAlbumClick && Math.abs(dx) > 35) selectAlbumPhoto(albumCurrent + (dx < 0 ? 1 : -1));
-    albumDrag = null;
-});
-albumSlider.addEventListener('pointercancel', () => { albumDrag = null; });
-albumSlider.addEventListener('dragstart', event => event.preventDefault());
-albumSlider.addEventListener('click', event => {
-    if (suppressAlbumClick && event.detail !== 0) {
-        event.preventDefault();
-        event.stopImmediatePropagation();
-        suppressAlbumClick = false;
-        return;
-    }
-    const card = event.target.closest('.album-item');
-    const index = carouselCards.indexOf(card);
-    if (index >= 0 && index !== albumCurrent) {
-        event.stopImmediatePropagation();
-        selectAlbumPhoto(index);
-    }
-}, true);
-albumSlider.addEventListener('keydown', event => {
-    if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) return;
-    event.preventDefault();
-    selectAlbumPhoto(event.key === 'Home' ? 0 : event.key === 'End' ? carouselCards.length - 1 :
-        albumCurrent + (event.key === 'ArrowRight' ? 1 : -1));
-});
-// Normalize wheel units and limit each transition to one photo.
-let albumWheelTotal = 0;
-let albumWheelLast = -Infinity;
-let albumWheelChanged = -Infinity;
-albumSlider.addEventListener('wheel', event => {
-    if (event.ctrlKey || event.metaKey || carouselCards.length < 2) return;
-    const delta = Math.abs(event.deltaX) > Math.abs(event.deltaY) ? event.deltaX : event.deltaY;
-    if (!delta) return;
-    event.preventDefault();
-    const now = performance.now();
-    if (now - albumWheelLast > 180 || Math.sign(delta) !== Math.sign(albumWheelTotal)) albumWheelTotal = 0;
-    albumWheelLast = now;
-    if (now - albumWheelChanged < 850) return;
-    const unit = event.deltaMode === 1 ? 16 : event.deltaMode === 2 ? albumSlider.clientHeight : 1;
-    albumWheelTotal += delta * unit;
-    if (Math.abs(albumWheelTotal) < 30) return;
-    selectAlbumPhoto(albumCurrent + Math.sign(albumWheelTotal));
-    albumWheelTotal = 0;
-    albumWheelChanged = now;
-}, { passive: false });
-selectAlbumPhoto(0);
-
-// Slow reading pace; user interaction always takes priority.
-const autoScrollToggle = document.querySelector('#autoScrollToggle');
-const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
-let autoScrolling = false;
-let autoScrollFrame = 0;
-let autoScrollStart = 0;
-let lastScrollTime = 0;
-let scrollPosition = 0;
-function stopAutoScroll() {
-    clearTimeout(autoScrollStart);
-    cancelAnimationFrame(autoScrollFrame);
-    autoScrolling = false;
-    autoScrollToggle.textContent = 'Tự cuộn ↓';
-    autoScrollToggle.setAttribute('aria-pressed', 'false');
-}
-function stepAutoScroll(time) {
-    if (!autoScrolling) return;
-    if (document.hidden || document.body.classList.contains('lock')) {
-        stopAutoScroll();
-        return;
-    }
-    const elapsed = lastScrollTime ? Math.min(time - lastScrollTime, 64) : 0;
-    lastScrollTime = time;
-    scrollPosition += elapsed * .018;
-    window.scrollTo({ top: scrollPosition, behavior: 'instant' });
-    if (window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 2) {
-        stopAutoScroll();
-        return;
-    }
-    autoScrollFrame = requestAnimationFrame(stepAutoScroll);
-}
-function startAutoScroll() {
-    stopAutoScroll();
-    autoScrolling = true;
-    scrollPosition = window.scrollY;
-    lastScrollTime = 0;
-    autoScrollToggle.textContent = 'Tạm dừng Ⅱ';
-    autoScrollToggle.setAttribute('aria-pressed', 'true');
-    autoScrollFrame = requestAnimationFrame(stepAutoScroll);
-}
-document.querySelector('#open').addEventListener('click', () => {
-    autoScrollToggle.hidden = false;
-    if (!reducedMotion.matches) autoScrollStart = setTimeout(startAutoScroll, 3500);
-});
-autoScrollToggle.addEventListener('click', () => autoScrolling ? stopAutoScroll() : startAutoScroll());
-window.addEventListener('wheel', stopAutoScroll, { passive: true });
-window.addEventListener('pointerdown', event => {
-    if (!event.target.closest('#autoScrollToggle')) stopAutoScroll();
-}, { passive: true });
-window.addEventListener('keydown', event => {
-    if (!event.target.closest('#autoScrollToggle')) stopAutoScroll();
-});
-document.addEventListener('visibilitychange', () => { if (document.hidden) stopAutoScroll(); });
-reducedMotion.addEventListener('change', stopAutoScroll);
+new IntersectionObserver(entries => { albumVisible = entries[0].isIntersecting; syncAlbumPlayback(); }, { threshold: .15 }).observe(albumSlider);
+new MutationObserver(syncAlbumPlayback).observe(document.body, { attributes: true, attributeFilter: ['class'] });
+document.addEventListener('visibilitychange', syncAlbumPlayback);
+albumMotion.addEventListener('change', () => { albumPaused = albumMotion.matches; weddingAlbum.params.speed = albumMotion.matches ? 0 : 1100; syncAlbumPlayback(); });
+albumPause.addEventListener('click', () => { albumPaused = !albumPaused; syncAlbumPlayback(); });
+albumSlider.addEventListener('focusin', () => weddingAlbum.autoplay.stop());
+albumSlider.addEventListener('focusout', () => setTimeout(() => { if (!albumSlider.contains(document.activeElement)) syncAlbumPlayback(); }, 0));
+syncAlbumPlayback();
 
 const cover = document.querySelector('#cover');
 addEventListener('load', () => setTimeout(() => document.querySelector('.loader').classList.add('hide'), 600));
-document.querySelector('#open').onclick = () => { cover.classList.add('open'); document.body.classList.remove('lock'); setTimeout(() => cover.remove(), 1300) }; const ob = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('show'); ob.unobserve(e.target) } }), { threshold: .14 }); document.querySelectorAll('.reveal').forEach(x => ob.observe(x)); const wedding = new Date('2026-12-12T16:30:00+07:00'); function tick() { let d = Math.max(0, wedding - new Date()), v = [Math.floor(d / 864e5), Math.floor(d / 36e5) % 24, Math.floor(d / 6e4) % 60, Math.floor(d / 1e3) % 60];['days', 'hours', 'mins', 'secs'].forEach((x, i) => document.querySelector('#' + x).textContent = String(v[i]).padStart(i ? 2 : 3, '0')) } tick(); setInterval(tick, 1000); document.querySelector('#form').onsubmit = e => { e.preventDefault(); let t = document.querySelector('#toast'); t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 3500); e.target.reset() }
+document.querySelector('#open').onclick = () => { cover.classList.add('open'); document.body.classList.remove('lock'); setTimeout(() => cover.remove(), 1300) }; const ob = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('show'); ob.unobserve(e.target) } }), { threshold: .14 }); document.querySelectorAll('.reveal').forEach(x => ob.observe(x)); const wedding = new Date('2026-12-12T16:30:00+07:00'); function tick() { let d = Math.max(0, wedding - new Date()), v = [Math.floor(d / 864e5), Math.floor(d / 36e5) % 24, Math.floor(d / 6e4) % 60, Math.floor(d / 1e3) % 60];['days', 'hours', 'mins', 'secs'].forEach((x, i) => document.querySelector('#' + x).textContent = String(v[i]).padStart(i ? 2 : 3, '0')) } tick(); setInterval(tick, 1000);
 
 document.querySelectorAll('[data-copy]').forEach(button => button.addEventListener('click', async () => {
             const original = button.textContent;
@@ -303,7 +184,8 @@ const groomVoice = document.querySelector('#groomVoice');
         groomVoice.addEventListener('timeupdate', () => groomVoiceTime.textContent = `${formatAudioTime(groomVoice.currentTime)} / ${formatAudioTime(groomVoice.duration)}`);
         groomVoice.addEventListener('ended', () => { setMusicVolume(100); groomVoice.currentTime = 0; });
 
-        const albumItems = [...document.querySelectorAll('.album-item')];
+        const albumItems = [...document.querySelectorAll('.album-item')].sort((a, b) =>
+            Number(a.dataset.swiperSlideIndex) - Number(b.dataset.swiperSlideIndex));
         const lightbox = document.querySelector('#lightbox');
         const lightboxImage = document.querySelector('#lightboxImage');
         const lightboxCount = document.querySelector('#lightboxCount');
@@ -540,7 +422,7 @@ document.querySelectorAll('[data-gift]').forEach(button => {
         giftSession++;
         giftOpener = button;
         giftWasLocked = document.body.classList.contains('lock');
-        stopAutoScroll();
+        document.dispatchEvent(new Event('invitation:pause-scroll'));
         document.querySelector('#giftDialogTitle').textContent = selectedGift.name;
         document.querySelector('#giftDialogLabel').textContent = selectedGift.label;
         document.querySelector('#giftThanks').textContent = selectedGift.thanks;

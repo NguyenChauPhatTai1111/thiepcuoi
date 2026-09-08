@@ -10,25 +10,41 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600&family=Lora:ital,wght@0,400;0,500;1,400&display=swap"
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="assets/styles.css?v=20260908-16">
+    <link rel="stylesheet" href="assets/swiper-bundle.min.css">
+    <link rel="stylesheet" href="assets/styles.css?v=20260908-17">
+    <link rel="stylesheet" href="assets/wedding.css?v=20260908-19">
+    <link rel="stylesheet" href="assets/refinement.css?v=20260908-22">
 </head>
 
 <body class="lock">
-    <div class="reading-progress" aria-hidden="true"><div id="readingProgressFill"></div></div>
+    <div class="reading-progress" aria-hidden="true">
+        <div id="readingProgressFill"></div>
+    </div>
     <div class="heart-layer" id="heartLayer" aria-hidden="true"></div>
     <div class="loader">
         <div>
-            <div class="loadmark">T & N</div>
+            <div class="loadmark" aria-hidden="true"><span>T</span><span class="loadmark-amp">&</span><span>N</span></div>
             <p class="loader-text">Đang chuẩn bị thiệp</p>
+            <div class="loader-dots" aria-hidden="true"><i></i><i></i><i></i></div>
         </div>
     </div>
     <div class="cover" id="cover">
         <div class="cover-card">
-            <span class="cover-corner cover-corner-top" aria-hidden="true">囍</span>
-            <span class="cover-corner cover-corner-bottom" aria-hidden="true">囍</span>
-            <div class="cover-seal" aria-hidden="true">囍</div>
+            <p class="cover-kicker">Một lời mời · Trọn yêu thương</p>
+            <div class="envelope-scene">
+                <div class="envelope-back" aria-hidden="true"></div>
+                <figure class="envelope-photo">
+                    <div class="envelope-portrait"><img src="assets/d76767fa5ebedee087af5.jpg"
+                            alt="Phát Tài hôn má Mỹ Nhàn" fetchpriority="high"></div>
+                    <figcaption>Our forever begins here</figcaption>
+                </figure>
+                <img class="envelope-flowers" src="assets/flower2-decoration.webp" alt="" aria-hidden="true">
+                <img class="envelope-front" src="assets/envelope-cover.webp"
+                    alt="Phong thư đỏ với dấu niêm phong trái tim vàng">
+                <span class="envelope-glint" aria-hidden="true">✦</span>
+            </div>
             <h1>Phát Tài <span>&</span> Mỹ Nhàn</h1>
             <div class="cover-divider" aria-hidden="true"><span>❦</span></div>
             <p class="cover-date">12 tháng 12, 2026</p>
@@ -43,11 +59,14 @@
                 <i></i><i></i><i></i><i></i><i></i>
             </span>
         </a>
+        <!-- Tạm ẩn các liên kết điều hướng.
         <div class="navlinks"><a href="#couple">Chúng mình</a><a href="#event">Hôn lễ</a><a href="#album">Album</a><a
                 href="#gift">Mừng cưới</a><a href="#rsvp">Xác nhận</a>
         </div>
+        -->
     </nav>
-    <button class="music" id="music" type="button" aria-label="Bật nhạc" aria-pressed="false" title="Nhạc nền thiệp cưới">♫</button>
+    <button class="music" id="music" type="button" aria-label="Bật nhạc" aria-pressed="false"
+        title="Nhạc nền thiệp cưới">♫</button>
     <!-- Audio from the requested video QCr4Wf_eJHo; no embedded video player. -->
     <audio id="backgroundMusic" src="assets/nhac-nen.mp3?v=20260908-15" preload="auto" loop playsinline></audio>
     <span id="musicStatus" class="music-status" role="status"></span>
@@ -61,7 +80,9 @@
             </div>
             <div class="scroll">Cuộn để khám phá ↓</div>
         </section>
-        <section class="section intro">
+        <section class="section intro floral-section">
+            <img class="section-flower flower-left" src="assets/flower2-decoration.webp" alt="" aria-hidden="true"
+                loading="lazy">
             <div class="reveal">
                 <div class="mark">❦</div>
                 <p class="eyebrow">Một lời hẹn · Một đời thương</p>
@@ -70,17 +91,35 @@
                     khoảnh khắc bắt đầu hành trình ấy cùng những người thân yêu nhất.</p>
             </div>
         </section>
+
         <section class="section names" id="couple">
-            <div class="person reveal"><span class="num">01 — Chú rể</span>
+            <div class="couple-envelope reveal">
+                <div class="envelope-scene">
+                    <div class="envelope-back" aria-hidden="true"></div>
+                    <figure class="envelope-photo">
+                        <div class="envelope-portrait"><img src="assets/d76767fa5ebedee087af5.jpg"
+                                alt="Phát Tài hôn má Mỹ Nhàn" loading="lazy"></div>
+                        <figcaption>Our forever begins here</figcaption>
+                    </figure>
+                    <img class="envelope-flowers" src="assets/flower2-decoration.webp" alt="" aria-hidden="true"
+                        loading="lazy">
+                    <img class="envelope-front" src="assets/envelope-cover.webp"
+                        alt="Phong thư đỏ với dấu niêm phong trái tim vàng" loading="lazy">
+                    <span class="envelope-glint" aria-hidden="true">✦</span>
+                </div>
+            </div>
+            <div class="person reveal"><span class="num"> Chú rể</span>
                 <h3>Nguyễn Châu<br>Phát Tài</h3>
-                <p>Trưởng nam<br>Ông Nguyễn Văn A & Bà Trần Thị B</p>
+                <p>Út nam<br>Ông Nguyễn Văn A & Bà Trần Thị B</p>
             </div>
             <div class="amp reveal">&</div>
-            <div class="person reveal"><span class="num">02 — Cô dâu</span>
+            <div class="person reveal"><span class="num"> Cô dâu</span>
                 <h3>Đặng<br>Mỹ Nhàn</h3>
-                <p>Trưởng nữ<br>Ông Đặng Văn C & Bà Lê Thị D</p>
+                <p>Út nữ<br>Ông Đặng Văn C & Bà Lê Thị D</p>
             </div>
         </section>
+
+
         <section class="quote">
             <div class="reveal">
                 <p>Our favourite chapter begins</p>
@@ -106,6 +145,41 @@
                         href="https://maps.google.com/?q=White+Palace+Pham+Van+Dong" target="_blank">Chỉ đường ↗</a>
                 </article>
             </div>
+        </section>
+        <section class="section itinerary floral-section" id="itinerary" aria-labelledby="itineraryTitle">
+            <img class="section-flower flower-left" src="assets/flower2-decoration.webp" alt="" aria-hidden="true"
+                loading="lazy">
+            <div class="title reveal">
+                <p class="eyebrow">The celebration</p>
+                <h2 id="itineraryTitle">Một buổi tối, ngàn kỷ niệm</h2>
+                <p>Lịch trình dự kiến · 12 tháng 12, 2026</p>
+            </div>
+            <ol class="party-timeline">
+                <li class="reveal"><time datetime="2026-12-12T17:30:00+07:00">17:30</time>
+                    <div><span class="timeline-number">01</span>
+                        <h3>Đón khách</h3>
+                        <p>Gặp gỡ, gửi lời chúc và lưu lại những tấm hình đầu tiên cùng hai chúng mình.</p>
+                    </div>
+                </li>
+                <li class="reveal"><time datetime="2026-12-12T18:00:00+07:00">18:00</time>
+                    <div><span class="timeline-number">02</span>
+                        <h3>Khoảnh khắc chung đôi</h3>
+                        <p>Cô dâu chú rể bước vào lễ đường, cùng gia đình nâng ly chúc mừng.</p>
+                    </div>
+                </li>
+                <li class="reveal"><time datetime="2026-12-12T18:30:00+07:00">18:30</time>
+                    <div><span class="timeline-number">03</span>
+                        <h3>Dùng tiệc & chung vui</h3>
+                        <p>Thưởng thức bữa tối, trò chuyện và chia sẻ niềm vui bên những người thân yêu.</p>
+                    </div>
+                </li>
+                <li class="reveal"><time datetime="2026-12-12T20:00:00+07:00">20:00</time>
+                    <div><span class="timeline-number">04</span>
+                        <h3>Lưu giữ yêu thương</h3>
+                        <p>Chụp ảnh kỷ niệm và gửi lời cảm ơn đến từng vị khách đã đến chung vui.</p>
+                    </div>
+                </li>
+            </ol>
         </section>
         <section class="section countdown">
             <div class="reveal">
@@ -139,8 +213,8 @@
                 <p class="eyebrow">The pre-wedding</p>
                 <h2>Chuyện của<br>chúng mình</h2>
                 <p>Không cần một câu chuyện quá phi thường. Chỉ cần mỗi ngày bình thường đều có một người bên cạnh, cùng
-                    cười, cùng sẻ chia và cùng chọn nhau — thêm một lần nữa.</p><span
-                    class="story-signature">Tài & Nhàn</span>
+                    cười, cùng sẻ chia và cùng chọn nhau — thêm một lần nữa.</p><span class="story-signature">Tài &
+                    Nhàn</span>
             </div>
             <div class="photo" role="img" aria-label="Ảnh cưới demo"></div>
         </section>
@@ -166,33 +240,39 @@
             <div class="album-head reveal">
                 <p class="eyebrow">Our moments</p>
                 <h2>Album của chúng mình</h2>
-                <p>Vuốt hoặc lăn chuột để chuyển ảnh · Chạm ảnh giữa để phóng lớn</p>
+                <p>Lăn chuột hoặc vuốt để xem từng ảnh · Chạm ảnh để phóng lớn</p>
             </div>
-            <div class="albumgrid reveal" id="albumSlider" role="region" aria-label="Album ảnh cưới" tabindex="0">
-                <button class="album-item" data-full="assets/d76767fa5ebedee087af5.jpg"><img
-                        src="assets/d76767fa5ebedee087af5.jpg" class="album-pos-68"
-                        alt="Phát Tài hôn má Mỹ Nhàn"></button>
-                <button class="album-item" data-full="assets/19e4f461cd254d7b14341.jpg"><img
-                        src="assets/19e4f461cd254d7b14341.jpg" class="album-pos-38"
-                        alt="Khoảnh khắc đời thường của Phát Tài và Mỹ Nhàn"></button>
-                <button class="album-item" data-full="assets/1a4e30d0099489cad0854.jpg"><img
-                        src="assets/1a4e30d0099489cad0854.jpg" class="album-pos-38"
-                        alt="Phát Tài và Mỹ Nhàn nắm tay nhau"></button>
-                <button class="album-item" data-full="assets/299dd102e846681831573.jpg"><img
-                        src="assets/299dd102e846681831573.jpg" class="album-pos-56"
-                        alt="Ảnh kỷ niệm của Phát Tài và Mỹ Nhàn"></button>
-                <button class="album-item" data-full="assets/a12a15b32cf7aca9f5e62.jpg"><img
-                        src="assets/a12a15b32cf7aca9f5e62.jpg" class="album-pos-54"
-                        alt="Phát Tài và Mỹ Nhàn nhìn nhau"></button>
+            <div class="albumgrid swiper reveal" id="albumSlider" role="region" aria-label="Album ảnh cưới"
+                tabindex="0">
+                <div class="swiper-wrapper">
+                    <button class="album-item swiper-slide" data-full="assets/d76767fa5ebedee087af5.jpg"><img
+                            src="assets/d76767fa5ebedee087af5.jpg" class="album-pos-68"
+                            alt="Phát Tài hôn má Mỹ Nhàn"></button>
+                    <button class="album-item swiper-slide" data-full="assets/19e4f461cd254d7b14341.jpg"><img
+                            src="assets/19e4f461cd254d7b14341.jpg" class="album-pos-38"
+                            alt="Khoảnh khắc đời thường của Phát Tài và Mỹ Nhàn"></button>
+                    <button class="album-item swiper-slide" data-full="assets/1a4e30d0099489cad0854.jpg"><img
+                            src="assets/1a4e30d0099489cad0854.jpg" class="album-pos-38"
+                            alt="Phát Tài và Mỹ Nhàn nắm tay nhau"></button>
+                    <button class="album-item swiper-slide" data-full="assets/299dd102e846681831573.jpg"><img
+                            src="assets/299dd102e846681831573.jpg" class="album-pos-56"
+                            alt="Ảnh kỷ niệm của Phát Tài và Mỹ Nhàn"></button>
+                    <button class="album-item swiper-slide" data-full="assets/a12a15b32cf7aca9f5e62.jpg"><img
+                            src="assets/a12a15b32cf7aca9f5e62.jpg" class="album-pos-54"
+                            alt="Phát Tài và Mỹ Nhàn nhìn nhau"></button>
+                </div>
             </div>
             <div class="album-controls">
                 <button id="albumPrev" type="button" aria-label="Ảnh trước" aria-controls="albumSlider">‹</button>
                 <div id="albumDots" class="album-dots" role="group" aria-label="Chọn ảnh"></div>
                 <button id="albumNext" type="button" aria-label="Ảnh tiếp theo" aria-controls="albumSlider">›</button>
             </div>
+            <button class="album-autoplay" id="albumAutoplay" type="button" aria-pressed="false">Tạm dừng album</button>
             <p id="albumPosition" class="album-position" aria-live="polite" aria-atomic="true">1 / 5</p>
         </section>
-        <section class="section gift" id="gift">
+        <section class="section gift floral-section" id="gift">
+            <img class="section-flower flower-right" src="assets/flower2-decoration.webp" alt="" aria-hidden="true"
+                loading="lazy">
             <div class="gift-title reveal">
                 <p class="eyebrow">Wedding gift</p>
                 <h2>Gửi quà mừng cưới</h2>
@@ -200,14 +280,16 @@
                     chọn cô dâu hoặc chú rể bên dưới.</p>
             </div>
             <div class="giftgrid">
-                <button class="gift-envelope reveal" type="button" data-gift="groom" aria-haspopup="dialog" aria-controls="giftDialog">
+                <button class="gift-envelope reveal" type="button" data-gift="groom" aria-haspopup="dialog"
+                    aria-controls="giftDialog">
                     <span class="envelope-flap" aria-hidden="true"></span>
                     <span class="envelope-seal" aria-hidden="true">T</span>
                     <span class="eyebrow">Gửi đến chú rể</span>
                     <span class="envelope-name">Phát Tài</span>
                     <span class="envelope-open">Mở phong thư <span aria-hidden="true">↗</span></span>
                 </button>
-                <button class="gift-envelope gift-envelope-bride reveal" type="button" data-gift="bride" aria-haspopup="dialog" aria-controls="giftDialog">
+                <button class="gift-envelope gift-envelope-bride reveal" type="button" data-gift="bride"
+                    aria-haspopup="dialog" aria-controls="giftDialog">
                     <span class="envelope-flap" aria-hidden="true"></span>
                     <span class="envelope-seal" aria-hidden="true">N</span>
                     <span class="eyebrow">Gửi đến cô dâu</span>
@@ -220,14 +302,29 @@
             <p class="eyebrow reveal">Répondez s'il vous plaît</p>
             <h2 class="reveal">Bạn sẽ đến chứ?</h2>
             <p class="reveal">Sự hiện diện của bạn là món quà quý giá nhất với chúng mình.</p>
-            <form id="form" class="reveal"><input class="field" required placeholder="Tên của bạn *"><input
-                    class="field" placeholder="Số điện thoại"><select class="field full">
-                    <option>Mình sẽ tham dự</option>
-                    <option>Mình rất tiếc không thể tham dự</option>
-                </select><input class="field full" type="number" min="1" max="10"
-                    placeholder="Số người tham dự"><textarea class="field full" rows="3"
-                    placeholder="Gửi đôi lời chúc đến cô dâu chú rể..."></textarea><button class="submit">Gửi xác
-                    nhận</button></form>
+            <form id="form" class="reveal">
+                <input class="field" name="name" required maxlength="100" aria-label="Tên của bạn"
+                    placeholder="Tên của bạn *" autocomplete="name">
+                <input class="field" name="phone" type="tel" maxlength="30" aria-label="Số điện thoại"
+                    placeholder="Số điện thoại" autocomplete="tel">
+                <select class="field full" name="attendance" aria-label="Xác nhận tham dự">
+                    <option value="yes">Mình sẽ tham dự</option>
+                    <option value="no">Mình rất tiếc không thể tham dự</option>
+                </select>
+                <input class="field full" name="guests" type="number" min="1" max="10" aria-label="Số người tham dự"
+                    placeholder="Số người tham dự">
+                <textarea class="field full" name="message" rows="4" maxlength="2000" aria-label="Lời chúc phúc"
+                    placeholder="Gửi đôi lời chúc đến cô dâu chú rể…"></textarea>
+                <p class="wish-privacy full">Lời chúc được lưu trên trình duyệt này và hiển thị bên dưới.</p>
+                <button class="submit" type="submit">Gửi xác nhận & lời chúc</button>
+            </form>
+            <p id="wishStatus" class="wish-status" role="status"></p>
+            <div class="guestbook" aria-labelledby="guestbookTitle">
+                <p class="eyebrow">Những yêu thương gửi lại</p>
+                <h3 id="guestbookTitle">Sổ lời chúc <span id="wishCount">0</span></h3>
+                <p id="wishEmpty" hidden>Hãy là người đầu tiên gửi lời chúc đến hai chúng mình nhé!</p>
+                <ul id="wishList" class="wish-list"></ul>
+            </div>
         </section>
     </main>
     <dialog class="gift-dialog" id="giftDialog" aria-labelledby="giftDialogTitle" aria-describedby="giftThanks">
@@ -239,7 +336,8 @@
             <p class="gift-thanks" id="giftThanks"></p>
             <div class="gift-qr">
                 <img id="giftQrImage" alt="" hidden>
-                <p id="giftQrPending">Thông tin nhận quà sẽ được cập nhật sớm.<br>Cảm ơn bạn đã gửi yêu thương đến chúng mình.</p>
+                <p id="giftQrPending">Thông tin nhận quà sẽ được cập nhật sớm.<br>Cảm ơn bạn đã gửi yêu thương đến chúng
+                    mình.</p>
             </div>
             <p class="bankinfo" id="giftBankInfo" hidden></p>
             <button class="copybtn" id="giftCopy" type="button" hidden>Sao chép số tài khoản</button>
@@ -274,8 +372,8 @@
                     <div class="chibi-head"></div>
                     <div class="chibi-body"></div>
                 </div>
-                <span class="kiss-heart">♥</span><span class="kiss-heart h2">♥</span><span
-                    class="kiss-heart h3">♥</span>
+                <span class="kiss-heart">❤️</span><span class="kiss-heart h2">♥</span><span class="kiss-heart h3">
+                    ❤️</span>
             </div>
             <h2>Cảm ơn vì đã<br>có mặt trong ngày vui!</h2>
             <p class="thanks-copy">Tài và Nhàn thật sự hạnh phúc khi được sẻ chia khoảnh khắc này cùng bạn. Cảm ơn bạn
@@ -296,10 +394,12 @@
         <div class="footnames">Phát Tài & Mỹ Nhàn</div>
         <p class="small">12 · 12 · 2026 — Thành phố Hồ Chí Minh</p>
     </footer>
-    <button class="auto-scroll-toggle" id="autoScrollToggle" type="button" aria-pressed="false" hidden>Tự cuộn ↓</button>
     <div class="toast" id="toast">Cảm ơn bạn! Lời xác nhận đã được ghi nhận ♡</div>
     <script src="assets/music.js?v=20260908-15"></script>
-    <script src="assets/app.js?v=20260908-16"></script>
+    <script src="assets/swiper-bundle.min.js"></script>
+    <script src="assets/app.js?v=20260908-22"></script>
+    <script src="assets/auto-scroll.js?v=20260908-22"></script>
+    <script src="assets/guestbook.js?v=20260908-20"></script>
     <script src="assets/photo-depth.js?v=20260908-12"></script>
 
 </body>

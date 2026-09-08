@@ -1,13 +1,13 @@
 .loader-text{text-align:center}.story-signature{font:italic 2rem var(--font-display);margin-top:25px}.album-pos-68{object-position:center 68%}.album-pos-38{object-position:center 38%}.album-pos-56{object-position:center 56%}.album-pos-54{object-position:center 54%}
 
 :root {
-    --ink: #283027;
+    --ink: #762238;
     --cream: #f4efe7;
     --paper: #fbf8f2;
     --gold: #b79b6c;
     --font-display: 'Lora', Georgia, serif;
     --font-body: 'Be Vietnam Pro', Arial, sans-serif;
-    --line: #2830272c
+    --line: #7622382c
 }
 
 * {
@@ -88,7 +88,7 @@ button {
     position: fixed;
     inset: 0;
     z-index: 999;
-    background: #242b24;
+    background: #762238;
     color: #fff;
     display: grid;
     place-items: center;
@@ -291,7 +291,7 @@ nav {
 .hero {
     min-height: 100svh;
     position: relative;
-    background: #202620;
+    background: #511e2a;
     color: #fff;
     display: flex;
     align-items: flex-end;
@@ -377,7 +377,7 @@ nav {
     margin: auto;
     line-height: 1.9;
     font-size: .9375rem;
-    color: #62675f
+    color: #75615b
 }
 
 .names {
@@ -404,17 +404,17 @@ nav {
 .person p {
     font-size: .9375rem;
     line-height: 1.8;
-    color: #6c716a
+    color: #75615b
 }
 
 .amp {
     font: italic clamp(5rem, 11vw, 11rem) var(--font-display);
-    color: #28302722
+    color: #76223822
 }
 
 .quote {
     min-height: 70vh;
-    background: linear-gradient(#2026207a, #2026207a), url('d76767fa5ebedee087af5.jpg') center 67%/cover fixed;
+    background: linear-gradient(#511e2a7a, #511e2a7a), url('d76767fa5ebedee087af5.jpg') center 67%/cover fixed;
     display: grid;
     place-items: center;
     text-align: center;
@@ -475,7 +475,7 @@ nav {
 .card p {
     font-size: .9375rem;
     line-height: 1.8;
-    color: #656b63
+    color: #75615b
 }
 
 .outline {
@@ -495,7 +495,7 @@ nav {
 }
 
 .countdown {
-    background: #283027;
+    background: #762238;
     color: #fff;
     text-align: center
 }
@@ -540,7 +540,7 @@ nav {
 .gallerycopy p {
     font-size: .9375rem;
     line-height: 1.9;
-    color: #686e66
+    color: #75615b
 }
 
 .photo {
@@ -550,7 +550,7 @@ nav {
 }
 
 .groom-voice {
-    background: #283027;
+    background: #762238;
     color: #fff;
     display: grid;
     grid-template-columns: .8fr 1.2fr;
@@ -587,7 +587,7 @@ nav {
 .voice-copy>p {
     font-size: .9375rem;
     line-height: 1.8;
-    color: #cdd2cb;
+    color: #ead9c4;
     max-width: 570px
 }
 
@@ -800,7 +800,7 @@ nav {
 .gift-title>p:last-child {
     max-width: 560px;
     margin: auto;
-    color: #666d64;
+    color: #75615b;
     font-size: .9375rem;
     line-height: 1.8
 }
@@ -844,7 +844,7 @@ nav {
     margin: 25px 0 0;
     font-size: .9375rem;
     line-height: 2;
-    color: #656b63
+    color: #75615b
 }
 
 .bankinfo strong {
@@ -882,7 +882,7 @@ nav {
     content: 'R';
     position: absolute;
     font: italic 35rem var(--font-display);
-    color: #28302708;
+    color: #76223808;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%)
@@ -899,7 +899,7 @@ nav {
 
 .rsvp>p {
     font-size: .9375rem;
-    color: #6a6f68
+    color: #75615b
 }
 
 .rsvp form {
@@ -946,7 +946,7 @@ nav {
     z-index: 200;
     transform: translate(-50%, 30px);
     opacity: 0;
-    background: #263026;
+    background: #762238;
     color: #fff;
     padding: 14px 22px;
     font-size: .9375rem;
@@ -1433,7 +1433,7 @@ footer {
 
 .scratch-head>p:last-child {
     font-size: .9375rem;
-    color: #6c716a
+    color: #75615b
 }
 
 .scratch-card {
@@ -1457,7 +1457,7 @@ footer {
     justify-content: center;
     padding: 35px;
     color: #fff;
-    background: linear-gradient(#20262080, #20262080), url('299dd102e846681831573.jpg') center 56%/cover
+    background: linear-gradient(#511e2a80, #511e2a80), url('299dd102e846681831573.jpg') center 56%/cover
 }
 
 .scratch-reveal strong {
@@ -1858,7 +1858,7 @@ h1, h2, h3, blockquote {
     width: 48px;
     height: 48px;
     border-radius: 50%;
-    background: #7c856d;
+    background: #982b40;
     color: #fff9ec;
     border: 4px double #ffffff50;
     box-shadow: 0 3px 8px #443a3026;
@@ -1907,7 +1907,7 @@ h1, h2, h3, blockquote {
 .gift-letter { padding: 42px 32px 32px; text-align: center; }
 .gift-letter-heart { color: #aa7770; font-size: 2rem; }
 .gift-letter h2 { margin: 12px 0 20px; font: 400 clamp(1.75rem, 6vw, 2.3rem)/1.4 var(--font-display); }
-.gift-thanks { font-size: .9375rem; line-height: 1.9; color: #62675f; }
+.gift-thanks { font-size: .9375rem; line-height: 1.9; color: #75615b; }
 .gift-qr { margin: 24px auto 0; padding: 16px; background: #fff; border: 1px solid #e6dccd; border-radius: 8px; }
 .gift-qr img { width: min(100%, 240px); height: auto; margin: auto; }
 .gift-qr p { font-size: .875rem; line-height: 1.8; color: #706653; }
@@ -1949,7 +1949,7 @@ h1, h2, h3, blockquote {
     height: 86%;
     aspect-ratio: 2 / 3;
     border-radius: 16px;
-    box-shadow: 0 18px 32px #20262030;
+    box-shadow: 0 18px 32px #511e2a30;
     transition: transform .85s ease-in-out, opacity .85s ease-in-out;
     cursor: pointer;
     backface-visibility: hidden;
@@ -1993,7 +1993,7 @@ h1, h2, h3, blockquote {
 }
 .album-dots button[aria-current="true"]:before { width: 24px; opacity: .75; }
 .album-controls button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
-.album-position { text-align: center; font-size: .75rem; letter-spacing: .12em; color: #666d64; margin: 10px 0 0; }
+.album-position { text-align: center; font-size: .75rem; letter-spacing: .12em; color: #75615b; margin: 10px 0 0; }
 @media(max-width:700px) {
     #albumSlider { height: clamp(320px, 100vw, 480px); perspective: 800px; }
     .album-controls { gap: 12px; }
@@ -2129,7 +2129,7 @@ h1, h2, h3, blockquote {
     position: relative;
     isolation: isolate;
     overflow: hidden;
-    background: #202620;
+    background: #511e2a;
 }
 .quote::before, .photo::before {
     content: '';
@@ -2140,7 +2140,7 @@ h1, h2, h3, blockquote {
     translate: 0 var(--photo-shift, 0px);
 }
 .quote::before {
-    background: linear-gradient(#2026207a, #2026207a),
+    background: linear-gradient(#511e2a7a, #511e2a7a),
         url('d76767fa5ebedee087af5.jpg') center 67% / cover;
 }
 .photo::before {
@@ -2151,7 +2151,7 @@ h1, h2, h3, blockquote {
 }
 #albumSlider .album-item {
     border: 3px solid #fbf8f2;
-    box-shadow: 0 20px 38px #20262033, 0 5px 12px #2026201a;
+    box-shadow: 0 20px 38px #511e2a33, 0 5px 12px #511e2a1a;
 }
 #albumSlider .album-item img {
     scale: 1.1;

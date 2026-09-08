@@ -1,0 +1,6 @@
+{
+  "name": "tai-nhan-wedding",
+  "private": true,
+  "scripts": { "start": "node server.mjs", "test": "node --test tests/guestbook.test.mjs" },
+  "engines": { "node": ">=22.13.0" }
+}

@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 160" fill="none">
+ <defs>
+  <radialGradient id="red"><stop stop-color="#e77b72"/><stop offset=".48" stop-color="#b62e40"/><stop offset="1" stop-color="#74172a"/></radialGradient>
+  <g id="rose"><path d="M0-29C19-43 38-22 29-8C48 8 29 35 12 29C-3 46-29 32-28 16C-48 0-29-29-13-26Z" fill="url(#red)"/><path d="M-18-12Q4-29 20-10Q32 11 7 22Q-18 26-22 4Q-20-9-5-12Q12-17 16 0Q16 13 0 13Q-11 11-8 0Q-3-8 5-2" stroke="#efad96" stroke-opacity=".65" stroke-width="2.5"/></g>
+ </defs>
+ <g stroke="#8f7854" stroke-width="2"><path d="M178 144Q111 52 29 73M182 144Q246 45 333 72M180 145V43"/></g>
+ <g fill="#a18a61"><path d="M96 102Q45 112 34 79Q80 67 96 102M129 120Q89 143 70 117Q98 93 129 120M264 102Q314 110 330 76Q286 68 264 102M232 121Q274 143 292 114Q259 95 232 121M169 80Q129 63 143 33Q175 44 169 80M194 72Q192 32 224 27Q231 61 194 72"/></g>
+ <use href="#rose" transform="translate(116 72) scale(.86) rotate(-20)"/><use href="#rose" transform="translate(242 72) scale(.86) rotate(20)"/><use href="#rose" transform="translate(180 55) scale(1.12)"/><use href="#rose" transform="translate(151 108) scale(.78)"/><use href="#rose" transform="translate(211 108) scale(.78)"/>
+ <path d="M179 134Q137 117 146 146Q159 160 180 139Q201 162 216 144Q222 120 179 134Z" fill="#d9bd91"/><path d="M175 138L164 159M185 138L196 159" stroke="#d9bd91" stroke-width="7"/>
+</svg>
