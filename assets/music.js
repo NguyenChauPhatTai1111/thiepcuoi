@@ -50,7 +50,13 @@ function toggle(value) {
     }, 8000);
 }
 window.onYouTubeIframeAPIReady = function () {
+    if (weddingPlayer) return;
     const source = new URL(yt.src);
+    source.searchParams.set('playsinline', '1');
+    source.searchParams.set('fs', '0');
+    source.searchParams.set('disablekb', '1');
+    source.searchParams.set('controls', '0');
+    yt.setAttribute('allow', "autoplay; encrypted-media; fullscreen 'none'; picture-in-picture 'none'");
     if (/^https?:$/.test(location.protocol)) source.searchParams.set('origin', location.origin);
     yt.src = source.href;
     weddingPlayer = new YT.Player('yt', {
@@ -87,5 +93,9 @@ window.onYouTubeIframeAPIReady = function () {
         }
     });
 };
-music.addEventListener('click', () => toggle());
+document.querySelector('#open').addEventListener('click', () => toggle(true), { once: true });
+music.addEventListener('click', event => {
+    event.preventDefault();
+    toggle();
+});
 
