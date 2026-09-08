@@ -1,3 +1,22 @@
+// Reading progress stays aligned with the page, including late-loading images.
+const readingProgressFill = document.querySelector('#readingProgressFill');
+let readingProgressFrame = 0;
+function updateReadingProgress() {
+    readingProgressFrame = 0;
+    const page = document.scrollingElement || document.documentElement;
+    const distance = page.scrollHeight - page.clientHeight;
+    const progress = distance > 0 ? Math.min(1, Math.max(0, page.scrollTop / distance)) : 0;
+    readingProgressFill.style.transform = 'scaleX(' + progress + ')';
+}
+function scheduleReadingProgress() {
+    if (!readingProgressFrame) readingProgressFrame = requestAnimationFrame(updateReadingProgress);
+}
+window.addEventListener('scroll', scheduleReadingProgress, { passive: true });
+window.addEventListener('resize', scheduleReadingProgress);
+window.addEventListener('pageshow', scheduleReadingProgress);
+new ResizeObserver(scheduleReadingProgress).observe(document.body);
+updateReadingProgress();
+
 // Layered album: center photo opens; side photos rotate into the center.
 const albumSlider = document.querySelector('#albumSlider');
 const carouselCards = [...albumSlider.querySelectorAll('.album-item')];
