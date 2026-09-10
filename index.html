@@ -7,6 +7,10 @@
     <meta name="theme-color" content="#f4efe7">
     <title>Phát Tài & Mỹ Nhàn — Save the Date</title>
     <meta name="description" content="Thiệp mời cưới của Phát Tài và Mỹ Nhàn">
+    <meta name="author" content="Phát Tài (Xòi) Dev">
+    <!-- Copyright signature: Phát Tài (Xòi) Dev -->
+    <link rel="icon" type="image/png" sizes="192x192" href="assets/favicon-couple.png?v=20260910-1">
+    <link rel="apple-touch-icon" sizes="192x192" href="assets/favicon-couple.png?v=20260910-1">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -16,9 +20,13 @@
     <link rel="stylesheet" href="assets/styles.css?v=20260908-17">
     <link rel="stylesheet" href="assets/wedding.css?v=20260908-19">
     <link rel="stylesheet" href="assets/refinement.css?v=20260908-22">
+    <link rel="stylesheet" href="assets/invitation-opening.css?v=20260910-4">
+    <link rel="stylesheet" href="assets/invitation-finish.css?v=20260910-2">
+    <link rel="stylesheet" href="assets/section-memories.css?v=20260910-1">
+    <link rel="stylesheet" href="assets/mobile-depth.css?v=20260910-2">
 </head>
 
-<body class="lock">
+<body class="lock" data-creator="Phát Tài (Xòi) Dev">
     <div class="reading-progress" aria-hidden="true">
         <div id="readingProgressFill"></div>
     </div>
@@ -33,17 +41,32 @@
     <div class="cover" id="cover">
         <div class="cover-card">
             <p class="cover-kicker">Một lời mời · Trọn yêu thương</p>
-            <div class="envelope-scene">
-                <div class="envelope-back" aria-hidden="true"></div>
-                <figure class="envelope-photo">
-                    <div class="envelope-portrait"><img src="assets/d76767fa5ebedee087af5.jpg"
-                            alt="Phát Tài hôn má Mỹ Nhàn" fetchpriority="high"></div>
-                    <figcaption>Our forever begins here</figcaption>
-                </figure>
-                <img class="envelope-flowers" src="assets/flower2-decoration.webp" alt="" aria-hidden="true">
-                <img class="envelope-front" src="assets/envelope-cover.webp"
-                    alt="Phong thư đỏ với dấu niêm phong trái tim vàng">
-                <span class="envelope-glint" aria-hidden="true">✦</span>
+            <div class="invitation-stage" aria-hidden="true">
+                <div class="invitation-halo"></div>
+                <div class="invitation-sparkles"><i>✦</i><i>✧</i><i>✦</i><i>✧</i><i>✦</i><i>✧</i></div>
+                <div class="invitation-floor-shadow"></div>
+                <div class="invitation-book">
+                    <div class="invitation-paper">
+                        <img class="invitation-photo" src="assets/299dd102e846681831573.jpg" alt="" fetchpriority="high">
+                        <span class="invitation-sheen"></span>
+                        <div class="invitation-letter">
+                            <span class="invitation-eyebrow">Trân trọng kính mời</span>
+                            <span class="invitation-names"><span>Phát Tài</span><i>&</i><span>Mỹ Nhàn</span></span>
+                            <span class="invitation-rule">✦</span>
+                            <span class="invitation-day">12 · 12 · 2026</span>
+                            <span class="invitation-note">Cùng chung vui<br>ngày chúng mình thành đôi.</span>
+                        </div>
+                    </div>
+                    <div class="invitation-wing invitation-wing-left">
+                        <div class="invitation-face invitation-face-front"><span class="invitation-initial">T</span></div>
+                        <div class="invitation-face invitation-face-back"><span class="invitation-wing-mark">T<i>❦</i></span></div>
+                    </div>
+                    <div class="invitation-wing invitation-wing-right">
+                        <div class="invitation-face invitation-face-front"><span class="invitation-initial">N</span></div>
+                        <div class="invitation-face invitation-face-back"><span class="invitation-wing-mark">N<i>❦</i></span></div>
+                    </div>
+                    <div class="invitation-seal">♡</div>
+                </div>
             </div>
             <h1>Phát Tài <span>&</span> Mỹ Nhàn</h1>
             <div class="cover-divider" aria-hidden="true"><span>❦</span></div>
@@ -52,7 +75,9 @@
             <button class="open-btn" id="open" type="button">
                 <span>Mở thiệp</span>
             </button>
+            <p class="opening-status" id="openingStatus" role="status"></p>
         </div>
+        <button class="opening-skip" id="skipOpening" type="button" aria-label="Vào thiệp ngay" title="Vào thiệp ngay" hidden></button>
     </div>
     <nav><a class="brand" href="#">T & N
             <span class="header-equalizer" aria-hidden="true">
@@ -92,6 +117,33 @@
             </div>
         </section>
 
+        <section class="memory-deck" id="memories" aria-labelledby="memoryDeckTitle">
+            <div class="memory-deck-sticky">
+                <div class="memory-deck-heading">
+                    <p class="eyebrow">Những ngày có nhau</p>
+                    <h2 id="memoryDeckTitle">Giữ một chút yêu thương.</h2>
+                    <p>Cuộn nhẹ để mở từng khoảnh khắc</p>
+                </div>
+                <div class="memory-deck-scene">
+                    <div class="memory-deck-rig">
+                        <button class="memory-print memory-print-left" type="button" data-depth-photo="assets/1a4e30d0099489cad0854.jpg" aria-label="Xem ảnh Phát Tài và Mỹ Nhàn nắm tay nhau">
+                            <img src="assets/1a4e30d0099489cad0854.jpg" alt="" loading="lazy" decoding="async">
+                            <span>Mình cùng đi.</span>
+                        </button>
+                        <button class="memory-print memory-print-right" type="button" data-depth-photo="assets/a12a15b32cf7aca9f5e62.jpg" aria-label="Xem ảnh Phát Tài và Mỹ Nhàn nhìn nhau">
+                            <img src="assets/a12a15b32cf7aca9f5e62.jpg" alt="" loading="lazy" decoding="async">
+                            <span>Mình cùng thương.</span>
+                        </button>
+                        <button class="memory-print memory-print-center" type="button" data-depth-photo="assets/d76767fa5ebedee087af5.jpg" aria-label="Xem ảnh Phát Tài hôn má Mỹ Nhàn">
+                            <img src="assets/d76767fa5ebedee087af5.jpg" alt="" loading="lazy" decoding="async">
+                            <span>Và chọn nhau, mỗi ngày ♡</span>
+                        </button>
+                    </div>
+                </div>
+                <p class="memory-deck-caption">Phát Tài <span>&</span> Mỹ Nhàn <i>12.12.2026</i></p>
+                <p class="memory-deck-hint">Chạm ảnh để xem gần hơn <span aria-hidden="true">↗</span></p>
+            </div>
+        </section>
         <section class="section names" id="couple">
             <div class="couple-envelope reveal">
                 <div class="envelope-scene">
@@ -397,10 +449,11 @@
     <div class="toast" id="toast">Cảm ơn bạn! Lời xác nhận đã được ghi nhận ♡</div>
     <script src="assets/music.js?v=20260908-15"></script>
     <script src="assets/swiper-bundle.min.js"></script>
-    <script src="assets/app.js?v=20260908-22"></script>
-    <script src="assets/auto-scroll.js?v=20260908-22"></script>
+    <script src="assets/app.js?v=20260910-5"></script>
+    <script src="assets/auto-scroll.js?v=20260910-1"></script>
     <script src="assets/guestbook.js?v=20260908-20"></script>
-    <script src="assets/photo-depth.js?v=20260908-12"></script>
+    <script src="assets/photo-depth.js?v=20260910-1"></script>
+    <script src="assets/mobile-depth.js?v=20260910-2"></script>
 
 </body>
 

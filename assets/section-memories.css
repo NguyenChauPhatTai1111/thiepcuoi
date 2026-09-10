@@ -1,0 +1,81 @@
+/* Original wedding photographs, revealed by the reader's scroll position. */
+main .memory-section {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    background: #fffcf7;
+    --memory-opacity: 0;
+    --memory-shift: 0px;
+}
+
+.memory-section>.section-memory {
+    position: absolute;
+    inset: 0;
+    z-index: -2;
+    pointer-events: none;
+    overflow: hidden;
+    opacity: var(--memory-opacity);
+}
+
+.section-memory img {
+    position: absolute;
+    inset: -36px 0;
+    width: 100%;
+    height: calc(100% + 72px);
+    object-fit: cover;
+    object-position: var(--memory-position, center);
+    transform: translateY(var(--memory-shift));
+}
+
+.section-memory::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+        linear-gradient(180deg, #fffcf7 0%, #fffcf700 22%, #fffcf700 76%, #fffcf7 100%),
+        linear-gradient(90deg, #fffcf742, #fffcf7de 30%, #fffcf7f2 50%, #fffcf7de 70%, #fffcf742);
+}
+
+.memory-section.memory-right .section-memory::after {
+    background:
+        linear-gradient(180deg, #fffcf7 0%, #fffcf700 22%, #fffcf700 76%, #fffcf7 100%),
+        linear-gradient(110deg, #fffcf7e8 18%, #fffcf7de 48%, #fffcf752 100%);
+}
+
+.memory-section.memory-left .section-memory::after {
+    background:
+        linear-gradient(180deg, #fffcf7 0%, #fffcf700 22%, #fffcf700 76%, #fffcf7 100%),
+        linear-gradient(250deg, #fffcf7e8 18%, #fffcf7de 48%, #fffcf752 100%);
+}
+
+/* Forms and the timeline keep a paper surface over the changing photograph. */
+.memory-section .party-timeline,
+.memory-section.rsvp form,
+.memory-section .guestbook {
+    background: #fffcf7e8;
+    border: 1px solid #d8c4ad52;
+    border-radius: 8px;
+    padding: clamp(18px, 3vw, 36px);
+    box-shadow: 0 12px 40px #67443008;
+}
+
+@media (max-width: 700px) {
+
+    .section-memory::after,
+    .memory-section.memory-left .section-memory::after,
+    .memory-section.memory-right .section-memory::after {
+        background:
+            linear-gradient(180deg, #fffcf7 0%, #fffcf745 14%, #fffcf7db 34%, #fffcf7ed 60%, #fffcf7ad 85%, #fffcf7 100%),
+            linear-gradient(90deg, #fffcf74d, #fffcf78c 50%, #fffcf74d);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    main .memory-section {
+        --memory-opacity: .65;
+    }
+
+    .section-memory img {
+        transform: none;
+    }
+}

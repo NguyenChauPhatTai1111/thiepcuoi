@@ -1,0 +1,397 @@
+/* A real hinged paper scene; the page is revealed only after the opening. */
+#cover {
+    transition: opacity 1.1s ease, visibility 0s 1.1s;
+}
+
+#cover .cover-card {
+    isolation: auto;
+}
+
+.invitation-stage {
+    width: min(64vw, 320px, 33svh);
+    aspect-ratio: .74;
+    margin: 24px auto 30px;
+    perspective: 1400px;
+    perspective-origin: 50% 42%;
+}
+
+.invitation-book {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    transform: rotateX(7deg) rotateY(-9deg) rotateZ(-3deg);
+}
+
+#cover:not(.is-opening) .invitation-book {
+    animation: invitation-idle 6.5s ease-in-out infinite;
+}
+
+@keyframes invitation-idle {
+
+    0%,
+    100% {
+        transform: translateY(0) rotateX(7deg) rotateY(-9deg) rotateZ(-3deg);
+    }
+
+    50% {
+        transform: translateY(-10px) rotateX(3deg) rotateY(5deg) rotateZ(1deg);
+    }
+}
+
+.invitation-paper {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    background: #fff6e8;
+    border: 1px solid #d6b88f;
+    border-radius: 3px;
+    box-shadow: 0 24px 42px #46201738, 3px 3px 0 #d6b88f, 5px 5px 0 #f4e4cd;
+}
+
+.invitation-photo {
+    width: 100%;
+    height: 57%;
+    object-fit: cover;
+    object-position: center 65%;
+    display: block;
+}
+
+.invitation-letter {
+    position: absolute;
+    inset: 53% 0 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+    color: #762238;
+    background: linear-gradient(#fff6e800, #fff6e8 12%);
+}
+
+.invitation-eyebrow {
+    font-size: clamp(7px, 1.8vw, 9px);
+    letter-spacing: .18em;
+    text-transform: uppercase;
+}
+
+.invitation-names {
+    margin-top: 9px;
+    font: 400 clamp(13px, 3vw, 22px)/1.4 var(--font-display);
+}
+
+.invitation-names i {
+    color: #aa7942;
+}
+
+.invitation-rule {
+    color: #ad814e;
+    font-size: 10px;
+    margin: 5px;
+}
+
+.invitation-day {
+    font-size: clamp(9px, 2vw, 12px);
+    letter-spacing: .2em;
+}
+
+.invitation-note {
+    margin-top: 9px;
+    font: italic clamp(9px, 2vw, 12px)/1.6 var(--font-display);
+}
+
+.invitation-wing {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 50%;
+    transform-style: preserve-3d;
+}
+
+.invitation-wing-left {
+    left: 0;
+    transform-origin: left center;
+    transform: translateZ(3px);
+}
+
+.invitation-wing-right {
+    right: 0;
+    transform-origin: right center;
+    transform: translateZ(4px);
+}
+
+.invitation-face {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    border: 1px solid #b78a515e;
+}
+
+.invitation-face-front {
+    color: #e5c18c;
+    background: radial-gradient(ellipse at top, #a04550, transparent 75%), repeating-linear-gradient(35deg, #ffffff03 0 1px, transparent 1px 4px), #702137;
+    box-shadow: inset 0 0 22px #390c2240;
+}
+
+.invitation-face-front::before {
+    content: '';
+    position: absolute;
+    inset: 13px;
+    border: 1px solid #d9b37b80;
+    border-radius: 70px 70px 0 0;
+}
+
+.invitation-face-front::after {
+    content: '❦';
+    position: absolute;
+    bottom: 12%;
+    font-size: 32px;
+    opacity: .7;
+}
+
+.invitation-initial {
+    font: italic clamp(35px, 9vw, 62px)/1 var(--font-display);
+    margin-bottom: 38%;
+    text-shadow: 0 2px 1px #341119;
+}
+
+.invitation-face-back {
+    transform: rotateY(180deg);
+    color: #a3794e;
+    background: linear-gradient(90deg, #ead7bc, #fff5e5 25%, #f4e5ce);
+    box-shadow: inset 0 0 0 10px #fff7ea, inset 0 0 0 11px #c6a16b80;
+    font: italic clamp(16px, 4vw, 26px)/1.5 var(--font-display);
+}
+
+.invitation-seal {
+    position: absolute;
+    left: 50%;
+    top: 54%;
+    width: 48px;
+    height: 48px;
+    display: grid;
+    place-items: center;
+    transform: translate(-50%, -50%) translateZ(7px);
+    border-radius: 50%;
+    border: 3px double #eccb92;
+    background: linear-gradient(135deg, #f6d99b, #b88a45 55%, #e3bf79);
+    color: #733d2a;
+    font-size: 28px;
+    box-shadow: 0 4px 10px #300b254d;
+}
+
+.opening-status {
+    min-height: 18px;
+    margin-top: 10px;
+    font-size: 11px;
+    letter-spacing: .06em;
+    color: #94734f;
+}
+
+.opening-skip {
+    position: absolute;
+    z-index: 5;
+    bottom: max(22px, env(safe-area-inset-bottom));
+    right: 24px;
+    padding: 12px;
+    border: 0;
+    background: #fff6e8d9;
+    border-radius: 24px;
+    color: #762238;
+    font: inherit;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.opening-skip[hidden] {
+    display: none;
+}
+
+#cover.is-opening {
+    overflow: hidden;
+}
+
+#cover.is-opening .invitation-book {
+    animation: invitation-approach 4.9s cubic-bezier(.22, .61, .36, 1) both;
+}
+
+#cover.is-opening .invitation-wing-left {
+    animation: invitation-left 3.25s .72s cubic-bezier(.2, .72, .2, 1) both;
+}
+
+#cover.is-opening .invitation-wing-right {
+    animation: invitation-right 3.4s .84s cubic-bezier(.2, .72, .2, 1) both;
+}
+
+#cover.is-opening .invitation-seal {
+    animation: invitation-unseal .72s .18s cubic-bezier(.2, .7, .2, 1) both;
+}
+
+#cover.is-opening .cover-card> :not(.invitation-stage):not(.opening-status) {
+    opacity: 0;
+    transition: opacity .55s;
+    pointer-events: none;
+}
+
+#cover.is-opening .opening-status {
+    transform: translateY(12px);
+}
+
+#cover.is-zooming .invitation-stage {
+    z-index: 3;
+    will-change: transform;
+}
+
+#cover.is-zooming .opening-status {
+    opacity: 0;
+    transition: opacity .6s;
+}
+
+#cover.is-zooming .invitation-letter {
+    opacity: 0;
+    transition: opacity 1.8s ease 1.3s;
+}
+
+#cover.is-zooming .invitation-photo {
+    height: 100%;
+    object-position: center 48%;
+    transition: height 3.8s cubic-bezier(.4, 0, .2, 1), object-position 3.8s ease;
+}
+
+#cover.is-zooming .invitation-paper {
+    border-color: transparent;
+    transition: border-color 1s;
+}
+
+body.invitation-entering .hero-content,
+body.invitation-entering .hero .scroll {
+    opacity: 0;
+    transform: translateY(24px);
+}
+
+body.invitation-entering.invite-opened .hero-content {
+    animation: invitation-content 1.6s .45s ease both;
+}
+
+body.invitation-entering.invite-opened .hero .scroll {
+    animation: invitation-content 1.2s 1.3s ease both;
+}
+
+@keyframes invitation-content {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+#cover.open {
+    transform: none;
+}
+
+@keyframes invitation-approach {
+    0% {
+        transform: var(--invitation-start, rotateX(7deg) rotateY(-9deg) rotateZ(-3deg));
+    }
+
+    22% {
+        transform: translateY(7%) translateZ(95px) rotateX(3deg) rotateY(0) rotateZ(0);
+    }
+
+    78% {
+        transform: translateY(10%) translateZ(135px) rotateX(0) rotateY(0) rotateZ(0);
+    }
+
+    100% {
+        transform: translateY(10%) translateZ(135px) rotateX(0) rotateY(0) rotateZ(0);
+    }
+}
+
+@keyframes invitation-left {
+    to {
+        transform: translateZ(3px) rotateY(-155deg);
+    }
+}
+
+@keyframes invitation-right {
+    to {
+        transform: translateZ(4px) rotateY(155deg);
+    }
+}
+
+@keyframes invitation-unseal {
+    to {
+        opacity: 0;
+        transform: translate(-50%, -50%) translateZ(70px) rotate(-18deg) scale(1.15);
+    }
+}
+
+@media (max-width: 700px) {
+    .invitation-stage {
+        width: min(49vw, 29svh);
+        margin-block: 22px 28px;
+    }
+
+    .invitation-face-front::before {
+        inset: 9px;
+    }
+
+    #cover.is-zooming .invitation-photo {
+        object-position: 58% 45%;
+    }
+}
+
+@media (max-height: 560px) {
+    .invitation-stage {
+        width: min(38vw, 27svh);
+        margin-block: 10px;
+    }
+
+    .invitation-note,
+    .invitation-eyebrow,
+    .invitation-rule {
+        display: none;
+    }
+
+    #cover .cover-card h1 {
+        font-size: 1.5rem;
+    }
+
+    .opening-status {
+        margin-top: 4px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    #cover {
+        transition: opacity .15s;
+    }
+
+    #cover.is-opening .invitation-book,
+    #cover.is-opening .invitation-wing,
+    #cover.is-opening .invitation-seal {
+        animation: none;
+    }
+
+    .invitation-book {
+        transform: none;
+    }
+
+    #cover:not(.is-opening) .invitation-book {
+        animation: none;
+    }
+
+    #cover.is-zooming .invitation-photo,
+    #cover.is-zooming .invitation-letter {
+        transition: none;
+    }
+
+    body.invitation-entering .hero-content,
+    body.invitation-entering .hero .scroll {
+        opacity: 1;
+        transform: none;
+        animation: none;
+    }
+}

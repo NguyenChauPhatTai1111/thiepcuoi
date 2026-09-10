@@ -39,7 +39,7 @@
         lastActivity = Date.now();
         if (opened) timer = setTimeout(start, 120000);
     }
-    document.querySelector('#open').addEventListener('click', () => {
+    document.addEventListener('invitation:opened', () => {
         opened = true;
         timer = setTimeout(start, 1400);
     });

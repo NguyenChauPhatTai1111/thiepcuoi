@@ -1,3 +1,4 @@
+// Copyright signature: Phát Tài (Xòi) Dev
 // Reading progress stays aligned with the page, including late-loading images.
 const readingProgressFill = document.querySelector('#readingProgressFill');
 let readingProgressFrame = 0;
@@ -55,7 +56,86 @@ syncAlbumPlayback();
 
 const cover = document.querySelector('#cover');
 addEventListener('load', () => setTimeout(() => document.querySelector('.loader').classList.add('hide'), 600));
-document.querySelector('#open').onclick = () => { cover.classList.add('open'); document.body.classList.remove('lock'); setTimeout(() => cover.remove(), 1300) }; const ob = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('show'); ob.unobserve(e.target) } }), { threshold: .14 }); document.querySelectorAll('.reveal').forEach(x => ob.observe(x)); const wedding = new Date('2026-12-12T16:30:00+07:00'); function tick() { let d = Math.max(0, wedding - new Date()), v = [Math.floor(d / 864e5), Math.floor(d / 36e5) % 24, Math.floor(d / 6e4) % 60, Math.floor(d / 1e3) % 60];['days', 'hours', 'mins', 'secs'].forEach((x, i) => document.querySelector('#' + x).textContent = String(v[i]).padStart(i ? 2 : 3, '0')) } tick(); setInterval(tick, 1000);
+const openingMotion = matchMedia('(prefers-reduced-motion: reduce)');
+const openButton = document.querySelector('#open');
+const skipOpening = document.querySelector('#skipOpening');
+const openingStatus = document.querySelector('#openingStatus');
+const invitationBackground = [...document.body.children].filter(element =>
+    element !== cover && !element.matches('.loader, script, audio'));
+const backgroundInert = invitationBackground.map(element => element.inert);
+invitationBackground.forEach(element => { element.inert = true; });
+let openingStarted = false;
+let openingFinished = false;
+let openingTimer;
+let invitationZoom;
+const openingCopyTimers = [];
+function zoomIntoInvitation() {
+    if (openingFinished) return;
+    if (openingMotion.matches) { finishInvitationOpening(); return; }
+    const stage = cover.querySelector('.invitation-stage');
+    const paper = cover.querySelector('.invitation-paper');
+    const bounds = paper.getBoundingClientRect();
+    const stageBounds = stage.getBoundingClientRect();
+    const centerX = bounds.left + bounds.width / 2;
+    const centerY = bounds.top + bounds.height / 2;
+    // Scale the actual paper to fill this viewport, including tall mobile screens.
+    const scale = Math.max(innerWidth / bounds.width, innerHeight / bounds.height) * 1.04;
+    const x = innerWidth / 2 - centerX;
+    const y = innerHeight / 2 - centerY;
+    stage.style.transformOrigin = `${centerX - stageBounds.left}px ${centerY - stageBounds.top}px`;
+    cover.classList.add('is-zooming');
+    document.body.classList.add('invitation-entering');
+    invitationZoom = stage.animate([
+        { transform: 'translate(0, 0) scale(1)' },
+        { transform: `translate(${x}px, ${y}px) scale(${scale})` }
+    ], { duration: 3250, easing: 'cubic-bezier(.42, 0, .16, 1)', fill: 'forwards' });
+    invitationZoom.onfinish = finishInvitationOpening;
+    // Keep the invitation usable if an animation completion event is interrupted.
+    openingTimer = setTimeout(finishInvitationOpening, 3500);
+}
+function finishInvitationOpening() {
+    if (!openingStarted || openingFinished) return;
+    openingFinished = true;
+    clearTimeout(openingTimer);
+    openingCopyTimers.forEach(clearTimeout);
+    if (invitationZoom) invitationZoom.onfinish = null;
+    cover.classList.add('open');
+    cover.inert = true;
+    window.scrollTo({ top: 0, behavior: 'instant' });
+    invitationBackground.forEach((element, index) => { element.inert = backgroundInert[index]; });
+    document.body.classList.remove('lock');
+    document.body.classList.add('invite-opened');
+    const hero = document.querySelector('.hero');
+    hero.setAttribute('tabindex', '-1');
+    hero.focus({ preventScroll: true });
+    document.dispatchEvent(new CustomEvent('invitation:opened'));
+    setTimeout(() => {
+        cover.remove();
+        invitationZoom?.cancel();
+    }, openingMotion.matches ? 180 : 1150);
+    setTimeout(() => document.body.classList.remove('invitation-entering'), 2700);
+}
+openButton.addEventListener('click', () => {
+    if (openingStarted) return;
+    openingStarted = true;
+    openButton.disabled = true;
+    // Continue from the current floating pose instead of snapping back on click.
+    const book = cover.querySelector('.invitation-book');
+    book.style.setProperty('--invitation-start', getComputedStyle(book).transform);
+    cover.classList.add('is-opening');
+    openingStatus.textContent = 'Một lời mời, dành riêng cho bạn…';
+    skipOpening.hidden = false;
+    skipOpening.focus({ preventScroll: true });
+    openingCopyTimers.push(
+        setTimeout(() => { if (!openingFinished) openingStatus.textContent = 'Cánh thiệp đang mở…'; }, 850),
+        setTimeout(() => { if (!openingFinished) openingStatus.textContent = 'Mời bạn bước vào ngày vui ♡'; }, 3350)
+    );
+    openingTimer = setTimeout(openingMotion.matches ? finishInvitationOpening : zoomIntoInvitation,
+        openingMotion.matches ? 150 : 5000);
+});
+skipOpening.addEventListener('click', finishInvitationOpening);
+openingMotion.addEventListener('change', () => { if (openingMotion.matches) finishInvitationOpening(); });
+const ob = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('show'); ob.unobserve(e.target) } }), { threshold: .14 }); document.querySelectorAll('.reveal').forEach(x => ob.observe(x)); const wedding = new Date('2026-12-12T16:30:00+07:00'); function tick() { let d = Math.max(0, wedding - new Date()), v = [Math.floor(d / 864e5), Math.floor(d / 36e5) % 24, Math.floor(d / 6e4) % 60, Math.floor(d / 1e3) % 60];['days', 'hours', 'mins', 'secs'].forEach((x, i) => document.querySelector('#' + x).textContent = String(v[i]).padStart(i ? 2 : 3, '0')) } tick(); setInterval(tick, 1000);
 
 document.querySelectorAll('[data-copy]').forEach(button => button.addEventListener('click', async () => {
             const original = button.textContent;
@@ -73,8 +153,7 @@ const secretInvite = document.querySelector('#secretInvite');
         const voiceState = document.querySelector('#voiceState');
         let secretTimer;
 
-        document.querySelector('#open').addEventListener('click', () => {
-            document.body.classList.add('invite-opened');
+        document.addEventListener('invitation:opened', () => {
             secretTimer = setTimeout(() => secretInvite.classList.add('show'), innerWidth <= 700 ? 1700 : 4500);
 
 
@@ -317,14 +396,10 @@ const heartLayer = document.querySelector('#heartLayer');
                 typingObserver.unobserve(entry.target);
             }), { threshold: .35, rootMargin: '0px 0px -6% 0px' });
             const startTyping = () => typedTexts.forEach(element => typingObserver.observe(element));
-            document.querySelector('#open').addEventListener('click', startTyping, { once: true });
+            document.addEventListener('invitation:opened', startTyping, { once: true });
         }
 
-        document.querySelector('#open').addEventListener('click', event => {
-            startFloatingHearts();
-            const box = event.currentTarget.getBoundingClientRect();
-            burstHearts(box.left + box.width / 2, box.top + box.height / 2, 12);
-        });
+        document.addEventListener('invitation:opened', startFloatingHearts, { once: true });
         document.addEventListener('click', event => {
             const target = event.target.closest('button,.album-item,.outline,.submit');
             if (!target || target.id === 'open') return;
